@@ -1,0 +1,102 @@
+body {
+	background-image: url("/img/night.jpg");
+	background-size: cover;
+}
+
+* {
+	color: white;
+	border-radius: 0 !important;
+}
+
+/*** style header ***/
+h1 {
+	font-family: 'Lato', sans-serif;
+	font-weight: bold;
+	text-align: center;
+	letter-spacing: 4px;
+	color: white;
+}
+
+#login-header {
+	margin-bottom: 40px;
+}
+
+/*** style the input fields ***/
+input {
+	font-family: 'Lato', sans-serif;
+	letter-spacing: 1px;
+}
+
+input:focus {
+	color: white;
+}
+
+input.login[type="text"] {
+	background: transparent;
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	border-width: 2px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+
+	color: white;
+	font-size: 18px;
+}
+
+input.login[type="text"]::placeholder {
+	color: white;
+	border-color: white;
+}
+
+input.login[type="password"] {
+	background: transparent;
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	border-width: 2px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+	margin-top: 25px;
+
+	color: white;
+	font-size: 18px;
+
+}
+
+input.login[type="password"]::placeholder {
+	color: white;
+	border-color: white;
+}
+
+/*** style and center the submit arrow ***/
+#submit {
+	background: transparent;
+	border: none;
+	margin-top: 25px;
+}
+
+#arrow {
+	width: 50px;
+	height: auto;
+}
+
+
+/*** vertically center login form ***/
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+
+
+
+
+
+
+
+
+
+

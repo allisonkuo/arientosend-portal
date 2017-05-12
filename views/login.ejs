@@ -1,0 +1,39 @@
+<!-- views/index.ejs -->
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Ariento Admin Portal</title>
+	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load boostrap css -->
+	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,700" rel="stylesheet"> <!-- font -->
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<div class="container-fluid vertical-center">
+	
+	<div class="col-sm-3 center-block">
+		<h1 id="login-header">ADMIN PORTAL</h1>
+
+	    <!-- show any messages that come back with authentication -->
+	    <% if (message.length > 0) { %>
+	        <div class="alert alert-danger"><%= message %></div>
+	    <% } %>
+
+	    <!-- LOGIN FORM -->
+	    <form action="/login" method="post">
+	        <div class="form-group">
+	            <input type="text" class="form-control login" name="email" placeholder="Username or Email">
+	        </div>
+	        <div class="form-group">
+	            <input type="password" class="form-control login" name="password" placeholder="Password">
+	        </div>
+
+	        <div class="text-center"><button type="submit" id="submit"><img src="/img/arrow.png" id="arrow"/></button></div>
+	    </form>
+	   
+	</div>
+
+
+</div>
+</body>
+</html>
