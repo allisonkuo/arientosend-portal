@@ -5,8 +5,9 @@ var LocalStrategy   = require('passport-local').Strategy;
 var mysql = require('mysql');
 var bcrypt = require('bcrypt-nodejs');
 var dbconfig = require('./database');
-var connection = mysql.createConnection(dbconfig.connection);
 
+// connect to mySQL 
+var connection = mysql.createConnection(dbconfig.connection);
 connection.query('USE ' + dbconfig.database);
 
 module.exports = function(passport) {
@@ -19,12 +20,12 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-		done(null, user.id);
+		done(null, user.login_id);
     });
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-		connection.query("SELECT * FROM users WHERE id = ? ",[id], function(err, rows){
+		connection.query("SELECT * FROM login WHERE login_id = ? ",[id], function(err, rows){
             done(err, rows[0]);
         });
     });
@@ -52,8 +53,9 @@ module.exports = function(passport) {
                 }
 
                 // if the user is found but the password is wrong
+                // TODO: make this handle encryption
                 if (password != rows[0].login_password) {
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
+                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong Password.')); // create the loginMessage and save it to session as flashdata
                 }
 
                 // all is well, return successful user
