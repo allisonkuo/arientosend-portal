@@ -25,14 +25,12 @@ module.exports = function(app, passport) {
             failureFlash : true // allow flash messages
         }),
         function(req, res) {
-            console.log("hello");
-
             if (req.body.remember) {
               req.session.cookie.maxAge = 1000 * 60 * 3;
             } else {
               req.session.cookie.expires = false;
             }
-            
+
             res.redirect('/');
         }
 
@@ -43,7 +41,6 @@ module.exports = function(app, passport) {
     // =====================================
     // show the signup form
     app.get('/signup', function(req, res) {
-
         // render the page and pass in any flash data if it exists
         res.render('signup.ejs', { message: req.flash('signupMessage') });
     });
@@ -66,8 +63,11 @@ module.exports = function(app, passport) {
     // LOGOUT ==============================
     // =====================================
     app.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
+        console.log(res.user);
+        req.session.destroy(function (err) {
+            res.clearCookie('connect.sid');
+            res.redirect('/'); //Inside a callback… bulletproof!
+        });
     });
 };
 

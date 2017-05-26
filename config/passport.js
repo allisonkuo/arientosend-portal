@@ -8,6 +8,15 @@ var dbconfig = require('./database');
 
 // connect to mySQL 
 var connection = mysql.createConnection(dbconfig.connection);
+connection.connect(function(err) {
+  if (err) {
+    console.error('Database connection failed: ' + err.stack);
+    return;
+  }
+
+  console.log('Connected to database.');
+});
+
 connection.query('USE ' + dbconfig.database);
 
 module.exports = function(passport) {
@@ -45,9 +54,12 @@ module.exports = function(passport) {
         },
         function(req, email, password, done) { // callback with email and password from our form
             connection.query("SELECT * FROM login WHERE login_name= ?",[email], function(err, rows){
+                // if there are any errors, return the error before anything else
                 if (err) {
                     return done(err);
                 }
+
+                // if no user is found, return the message
                 if (!rows.length) {
                     return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
                 }
@@ -65,3 +77,6 @@ module.exports = function(passport) {
     );
 
 };
+
+
+

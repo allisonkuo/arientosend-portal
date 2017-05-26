@@ -6,6 +6,7 @@ body {
 * {
 	color: white;
 	border-radius: 0 !important;
+	font-family: 'Lato', sans-serif;
 }
 
 /*** style header ***/
@@ -84,16 +85,30 @@ input.login[type="password"]::placeholder {
 
 /*** vertically center login form ***/
 .vertical-center {
-  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
-  min-height: 100vh; /* These two lines are counted as one :-)       */
+	min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+	min-height: 100vh; /* These two lines are counted as one :-)       */
 
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
+/*** style for a box ***/
+.box {
+	background: transparent;
+	border: 2px solid white;
+	padding: 10px 20px 10px 20px;
+	margin: 30px;
+}
 
+a {
+	color: white;
+}
 
-
+a:hover {
+	border-color: #aaaaaa; /* dim box when hovering */
+	color: #aaaaaa;
+	text-decoration: none;
+}
 
 
 
