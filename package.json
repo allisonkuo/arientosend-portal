@@ -17,6 +17,7 @@
     "mysql": "latest",
     "passport": "~0.1.17",
     "passport-local": "~0.1.6",
-    "sequelize": "^3.30.4"
+    "sequelize": "^3.30.4",
+    "speakeasy": "^2.0.0"
   }
 }
