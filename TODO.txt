@@ -1,0 +1,23 @@
+TODO LIST
+Finish rest of Admin Pages
+	-Create Company
+		-Name
+		-Domain
+		-Email
+		-Password
+	-Edit Company
+		-Dropdown list of created companies
+		-Edit interface for previous fields
+	-Usage Log
+		-Don't know if we can do much about this w/o other team
+		-Also don't know if this is as applicable anymore w/o Virtru
+Embeddable Javascript
+	-Not our job to make the javascript
+	-We should probably figure out a place for client to access it though.
+2 Factor Authentication
+	-Google Authenticator?  
+		
+Need to ask Chris:
+	How does he want the client to access the embed javascript?
+		-Something in the admin portal? Separate access page?
+	Any requirements for the 2 Factor Authentication?
