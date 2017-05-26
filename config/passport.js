@@ -61,13 +61,13 @@ module.exports = function(passport) {
 
                 // if no user is found, return the message
                 if (!rows.length) {
-                    return done(null, false, req.flash('loginMessage', 'No user found.')); // req.flash is the way to set flashdata using connect-flash
+                    return done(null, false, req.flash('loginMessage', 'Oops! Incorrect username/password.')); // req.flash is the way to set flashdata using connect-flash
                 }
 
                 // if the user is found but the password is wrong
                 // TODO: make this handle encryption
                 if (password != rows[0].login_password) {
-                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong Password.')); // create the loginMessage and save it to session as flashdata
+                    return done(null, false, req.flash('loginMessage', 'Oops! Incorrect username/password.')); // create the loginMessage and save it to session as flashdata
                 }
 
                 // all is well, return successful user

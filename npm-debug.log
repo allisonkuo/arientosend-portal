@@ -7,7 +7,7 @@
 6 silly lifecycle node-authentication@~prestart: no script for prestart, continuing
 7 info lifecycle node-authentication@~start: node-authentication@
 8 verbose lifecycle node-authentication@~start: unsafe-perm in lifecycle true
-9 verbose lifecycle node-authentication@~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/allisonkuo/Desktop/arientosend-portal/node_modules/.bin:/Users/allisonkuo/anaconda/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin
+9 verbose lifecycle node-authentication@~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/allisonkuo/Desktop/arientosend-portal/node_modules/.bin:/Users/allisonkuo/.local/bin:/Users/allisonkuo/anaconda/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin
 10 verbose lifecycle node-authentication@~start: CWD: /Users/allisonkuo/Desktop/arientosend-portal
 11 silly lifecycle node-authentication@~start: Args: [ '-c', 'node server.js' ]
 12 silly lifecycle node-authentication@~start: Returned: code: 1  signal: null
