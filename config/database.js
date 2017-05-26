@@ -1,5 +1,5 @@
 // config/database.js
-module.exports = {
+var dbconfig = {
     'connection': {
         'host': 'arientosenddb.cnrikh4cspia.us-west-2.rds.amazonaws.com',
         'user': 'ariento',
@@ -7,4 +7,22 @@ module.exports = {
     },
 	'database': 'ArientoSend_Database',
     'users_table': 'login',
+};
+
+var mysql = require('mysql');
+var bcrypt = require('bcrypt-nodejs');
+
+// connect to and export mySQL 
+module.exports = function () { 
+	var connection = mysql.createConnection(dbconfig.connection);
+	connection.connect(function(err) {
+	  if (err) {
+	    console.error('Database connection failed: ' + err.stack);
+	    return;
+	  }
+
+	  console.log('Connected to database.');
+	});
+	connection.query('USE ' + dbconfig.database);
+	return connection;
 };

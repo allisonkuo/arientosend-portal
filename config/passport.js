@@ -1,23 +1,9 @@
 // expose this function to our app using module.exports
 var LocalStrategy   = require('passport-local').Strategy;
 
-// load up the user model
-var mysql = require('mysql');
-var bcrypt = require('bcrypt-nodejs');
-var dbconfig = require('./database');
-
-// connect to mySQL 
-var connection = mysql.createConnection(dbconfig.connection);
-connection.connect(function(err) {
-  if (err) {
-    console.error('Database connection failed: ' + err.stack);
-    return;
-  }
-
-  console.log('Connected to database.');
-});
-
-connection.query('USE ' + dbconfig.database);
+// import database connection
+var db = require('./database');
+var connection = db();
 
 module.exports = function(passport) {
 
@@ -67,7 +53,7 @@ module.exports = function(passport) {
                 // if the user is found but the password is wrong
                 // TODO: make this handle encryption
                 if (password != rows[0].login_password) {
-                    return done(null, false, req.flash('loginMessage', 'Oops! Incorrect username/password.')); // create the loginMessage and save it to session as flashdata
+                    return done(null, false, req.flash('loginMessage', 'Oops! Incorrect username/password. ')); // create the loginMessage and save it to session as flashdata
                 }
 
                 // all is well, return successful user
