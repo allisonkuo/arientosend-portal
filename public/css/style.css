@@ -6,6 +6,8 @@ body {
 * {
 	color: white;
 	border-radius: 0 !important;
+	font-family: 'Lato', sans-serif;
+	font-size: 18px;
 }
 
 /*** style header ***/
@@ -69,6 +71,23 @@ input.login[type="password"]::placeholder {
 	border-color: white;
 }
 
+/*** style for other input boxes ***/
+input.input-box[type="text"] {
+	background: transparent;
+	border: 1px solid white;
+	padding: 25px 20px 25px 20px;
+	width: 300px;
+	margin-bottom: 20px;
+
+	color: white;
+	font-size: 18px;
+}
+
+input.input-box[type="text"]::placeholder {
+	color: white;
+}
+
+
 /*** style and center the submit arrow ***/
 #submit {
 	background: transparent;
@@ -84,18 +103,51 @@ input.login[type="password"]::placeholder {
 
 /*** vertically center login form ***/
 .vertical-center {
-  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
-  min-height: 100vh; /* These two lines are counted as one :-)       */
+	min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+	min-height: 100vh; /* These two lines are counted as one :-)       */
 
-  display: flex;
-  align-items: center;
+	display: flex;
+	align-items: center;
 }
 
+/*** style for a box ***/
+.box {
+	background: transparent;
+	border: 2px solid white;
+	padding: 10px 20px 10px 20px;
+	margin: 30px;
+}
 
+a {
+	color: white;
+	text-align: center;
+}
 
+a:hover {
+	border-color: #aaaaaa; /* dim box when hovering */
+	color: #aaaaaa;
+	text-decoration: none;
+}
 
+.stack {
+	margin: auto;
+	width: 300px;
+}
 
+/*** for any clickable "submit" boxes [create, update] **/
+.submit {
+	background: white;
+	border: 1px solid white;
+	padding: 10px 0px 10px 0px;
+	margin: 20px;
+	width: 300px;
+	margin: auto;
+	text-align: center;
+}
 
+.submit a {
+	color: black;
+}
 
 
 

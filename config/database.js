@@ -6,6 +6,5 @@ module.exports = {
         'password': 'arientosend'
     },
 	'database': 'ArientoSend_Database',
-    'users_table': 'login'
+    'users_table': 'login',
 };
-
