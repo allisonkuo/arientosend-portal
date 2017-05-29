@@ -2,8 +2,8 @@
 var LocalStrategy   = require('passport-local').Strategy;
 
 // import database connection
-var db = require('./database');
-var connection = db();
+var users = require('../app/models/user');
+var User = users();
 
 module.exports = function(passport) {
 
@@ -15,14 +15,14 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-		done(null, user.login_id);
+		done(null, user.uid);
     });
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-		connection.query("SELECT * FROM login WHERE login_id = ? ",[id], function(err, rows){
-            done(err, rows[0]);
-        });
+		User.find('login', 'uid', id, function(err, results){
+			done(err, results[0]);
+		});
     });
 	
 
@@ -39,7 +39,7 @@ module.exports = function(passport) {
             passReqToCallback : true // allows us to pass back the entire request to the callback
         },
         function(req, email, password, done) { // callback with email and password from our form
-            connection.query("SELECT * FROM login WHERE login_name= ?",[email], function(err, rows){
+            User.find('login', 'username', email, function(err, rows){
                 // if there are any errors, return the error before anything else
                 if (err) {
                     return done(err);
@@ -52,7 +52,8 @@ module.exports = function(passport) {
 
                 // if the user is found but the password is wrong
                 // TODO: make this handle encryption
-                if (password != rows[0].login_password) {
+                //if (password != rows[0].login_password) {
+                if (!User.checkLogin(password)) {
                     return done(null, false, req.flash('loginMessage', 'Oops! Incorrect username/password. ')); // create the loginMessage and save it to session as flashdata
                 }
 
@@ -61,6 +62,37 @@ module.exports = function(passport) {
             });
         })
     );
+	
+	//Signup
+	
+	passport.use('local-signup', new LocalStrategy({ 
+			usernameField : 'username',
+			passwordField : 'password',
+			passReqToCallback : true
+		},
+		function(req, username, password, done){
+			User.find('login', 'username', username, function(err, rows){ //Want to verify user is not already in db.
+				if(err){
+					return done(err);
+				}
+				
+				if(rows.length > 0){
+					return done(null, false, req.flash('addAdminMessage', 'Oops! Username already in use!'));
+				}
+				
+				if(password != req.body.password2){
+					return done(null, false, req.flash('addAdminMessage', 'Passwords do not match.'));
+				}
+				
+				User.register(username, req.body.email, User.hashPassword(password), function(err){
+					if(err){
+						throw err;
+					}
+					return done(null, true, req.flash('landingMessage', 'Success! User added!'));
+				});
+			});
+		})
+	);
 
 };
 

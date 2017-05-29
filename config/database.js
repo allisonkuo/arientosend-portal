@@ -1,11 +1,25 @@
 // config/database.js
-var dbconfig = {
+var olddbconfig = {
     'connection': {
         'host': 'arientosenddb.cnrikh4cspia.us-west-2.rds.amazonaws.com',
         'user': 'ariento',
         'password': 'arientosend'
     },
 	'database': 'ArientoSend_Database',
+    'users_table': 'login',
+};
+
+//Remember, different db has different schema:
+//old db has: login_name, login_id, login_password
+
+//new db has: username, password, email, uid, (and soon 2fa-secret)
+var dbconfig = {
+    'connection': {
+        'host': 'cs130db.cijzwabqavtc.us-west-1.rds.amazonaws.com',
+        'user': 'kho',
+        'password': '204315203'
+    },
+	'database': 'CS130_DB',
     'users_table': 'login',
 };
 
