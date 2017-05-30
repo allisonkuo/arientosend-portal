@@ -1,5 +1,6 @@
 // app/routes.js
-var db 			= require('../config/database');
+var db 	= require('../config/database');
+
 module.exports = function(app, passport) {
 
     // =====================================
@@ -56,7 +57,7 @@ module.exports = function(app, passport) {
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/landingpage', isLoggedIn, function(req, res) {
         res.render('landingpage.ejs', {
-            user : req.user // get the user out of session and pass to template
+            user : req.user.login_name // get the user out of session and pass to template
         });
     });
 
@@ -67,7 +68,7 @@ module.exports = function(app, passport) {
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/create', isLoggedIn, function(req, res) {
         res.render('create.ejs', {
-            user : req.user // get the user out of session and pass to template
+            user : req.user.login_name // get the user out of session and pass to template
         });
     });
 	
@@ -83,6 +84,9 @@ module.exports = function(app, passport) {
 			if (err) throw err;
 			console.log("Number of records inserted: " + result.affectedRows);
 		});	
+
+        // TODO: i think there may be a bug here if you try to insert something that already exists
+        // let's look into that
     });
 
     // =====================================
@@ -91,9 +95,26 @@ module.exports = function(app, passport) {
     // we will want this protected so you have to be logged in to visit
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/edit', isLoggedIn, function(req, res) {
-        res.render('edit.ejs', {
-            user : req.user // get the user out of session and pass to template
+        // get list of company names
+        var connection = db();
+
+        var query = "SELECT * FROM company";
+        var companies = [];
+
+        connection.query(query, function(err, rows, fields) {
+            if (err) throw err;
+            for (var i in rows) {
+                companies.push(rows[i].company_name);
+            }
+
+            res.render('edit.ejs', {
+                user : req.user.login_name, // get the user out of session and pass to template
+                companies: companies // pass company names to template
+
+            });
+
         });
+
     });
 
 

@@ -24,14 +24,14 @@
 <div class="container-fluid vertical-center">
 
 	<div class="center-block">
-		<h1 id="login-header">EDIT COMPANY PAGES</h1>
+		<h1 id="login-header">EDIT COMPANY PAGE</h1>
+
+		<% for (var i in companies) { %>
+			<p class="text-center"><%= companies[i] %></p>
+		<% } %>
 
 
-		<div class="form-group stack">
-            <input type="text" class="form-control input-box" name="name" placeholder="Company Name">
-        </div>
-
-		<div class="clickable"><button id="create">CREATE</button></div>
+		<div class="clickable"><button id="create">EDIT</button></div>
 	</div>
 
 
