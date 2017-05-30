@@ -135,7 +135,7 @@ a:hover {
 }
 
 /*** for any clickable "submit" boxes [create, update] **/
-.submit {
+.clickable {
 	background: white;
 	border: 1px solid white;
 	padding: 10px 0px 10px 0px;
@@ -145,10 +145,14 @@ a:hover {
 	text-align: center;
 }
 
-.submit a {
+.clickable button {
 	color: black;
 }
 
+#create {
+	background: transparent;
+	border: none;
+}
 
 
 
