@@ -29,21 +29,23 @@
 	<div class="center-block">
 		<h1 id="login-header">CREATE COMPANY PAGE</h1>
 
+		<!-- CREATE COMPANY FORM -->
+	    <form action="/create" method="post">
+			<div class="form-group stack">
+				<input type="text" class="form-control input-box" name="name" placeholder="Company Name">
+			</div>
+			<div class="form-group stack">
+				<input type="text" class="form-control input-box" name="domain" placeholder="Comany Domain">
+			</div>
+			<div class="form-group stack">
+				<input type="text" class="form-control input-box" name="co_email" placeholder="Email">
+			</div>
+			<div class="form-group stack">
+				<input type="text" class="form-control input-box" name="co_password" placeholder="Password">
+			</div>
 
-		<div class="form-group stack">
-            <input type="text" class="form-control input-box" name="name" placeholder="Company Name">
-        </div>
-        <div class="form-group stack">
-            <input type="text" class="form-control input-box" name="domain" placeholder="Comany Domain">
-        </div>
-        <div class="form-group stack">
-            <input type="text" class="form-control input-box" name="co_email" placeholder="Email">
-        </div>
-        <div class="form-group stack">
-            <input type="text" class="form-control input-box" name="co_password" placeholder="Password">
-        </div>
-
-		<div class="submit"><a href="#">CREATE</a></div>
+			<div class="text-center"><button type="submit" id="submit">CREATE</button></div>
+		</form>
 	</div>
 
 

@@ -1,4 +1,5 @@
 // app/routes.js
+var db 			= require('../config/database');
 module.exports = function(app, passport) {
 
     // =====================================
@@ -69,9 +70,23 @@ module.exports = function(app, passport) {
             user : req.user // get the user out of session and pass to template
         });
     });
+	
+	// process the company creation
+    app.post('/create', function(req, res) {
+        var connection = db();
+		
+		var sql = "INSERT INTO company (company_name, company_domain, company_email, company_password) VALUES ?";
+		
+		var newCompany = [[req.body.name, req.body.domain, req.body.co_email, req.body.co_password]];
+		
+		connection.query(sql, [newCompany], function(err, result) {
+			if (err) throw err;
+			console.log("Number of records inserted: " + result.affectedRows);
+		});	
+    });
 
     // =====================================
-    // CREATE COMPANY ======================
+    // EDIT COMPANY ======================
     // =====================================
     // we will want this protected so you have to be logged in to visit
     // we will use route middleware to verify this (the isLoggedIn function)
@@ -104,3 +119,5 @@ function isLoggedIn(req, res, next) {
     // if they aren't redirect them to the home page
     res.redirect('/');
 }
+
+

@@ -7,6 +7,7 @@ var dbconfig = {
     },
 	'database': 'ArientoSend_Database',
     'users_table': 'login',
+	'companies_table': 'company'
 };
 
 var mysql = require('mysql');
