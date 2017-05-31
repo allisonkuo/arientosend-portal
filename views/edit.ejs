@@ -7,6 +7,8 @@
 	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,700" rel="stylesheet"> <!-- font -->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-fixed-top">
@@ -23,15 +25,17 @@
 
 <div class="container-fluid vertical-center">
 
+	
 	<div class="center-block">
 		<h1 id="login-header">EDIT COMPANY PAGE</h1>
-
+		
+		<!-- list of companies -->
+		<div style="margin-bottom: 20px">
 		<% for (var i in companies) { %>
-			<p class="text-center"><%= companies[i] %></p>
+			<div class="text-center"><a href="/edit/<%= companies[i] %>"> <%= companies[i] %></a></div>
 		<% } %>
+		</div>
 
-
-		<div class="clickable"><button id="create">EDIT</button></div>
 	</div>
 
 

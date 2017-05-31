@@ -154,5 +154,16 @@ a:hover {
 	border: none;
 }
 
+#edit {
+	background: transparent;
+	border: none;
+}
+
+/*** the list of companies ***/
+.companies {
+	background: transparent;
+	border: none;
+}
+
 
 

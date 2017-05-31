@@ -22,7 +22,7 @@ module.exports = function(app, passport) {
 
     // process the login form
     app.post('/', passport.authenticate('local-login', {
-            successRedirect : '/landingpage', // TODO: redirect to the secure company section
+            successRedirect : '/landingpage', // redirect to the secure company section
             failureRedirect : '/', // redirect back to the login page if there is an error
             failureFlash : true // allow flash messages
         }),
@@ -42,10 +42,10 @@ module.exports = function(app, passport) {
     // SIGNUP ==============================
     // =====================================
     // show the signup form
-    app.get('/signup', function(req, res) {
+    /*app.get('/signup', function(req, res) {
         // render the page and pass in any flash data if it exists
         res.render('signup.ejs', { message: req.flash('signupMessage') });
-    });
+    });*/
 
     // process the signup form
     // app.post('/signup', do all our passport stuff here);
@@ -75,7 +75,7 @@ module.exports = function(app, passport) {
 	// process the company creation
     app.post('/create', function(req, res) {
         var connection = db();
-		
+		console.log(req.body);
 		var sql = "INSERT INTO company (company_name, company_domain, company_email, company_password) VALUES ?";
 		
 		var newCompany = [[req.body.name, req.body.domain, req.body.co_email, req.body.co_password]];
@@ -86,7 +86,9 @@ module.exports = function(app, passport) {
 		});	
 
         // TODO: i think there may be a bug here if you try to insert something that already exists
-        // let's look into that
+        // or something like that
+        // TODO: handle the case where you hit "create" with no inputs
+        // let's look into it
     });
 
     // =====================================
@@ -115,6 +117,11 @@ module.exports = function(app, passport) {
 
         });
 
+    });
+
+    // generate input boxes to edit company info
+    app.get('/edit/:companyName', isLoggedIn, function(req, res) {
+        res.render('editInput.ejs');
     });
 
 
