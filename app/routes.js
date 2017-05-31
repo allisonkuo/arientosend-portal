@@ -134,15 +134,14 @@ module.exports = function(app, passport) {
                 name: name,
                 domain: info[0].company_domain,
                 email: info[0].company_email
-
             });
         });
     });
 
     // update company information in database
     app.post('/edit/:companyName', function(req, res) { 
-        var query = "UPDATE company SET company_name = ?, company_domain = ? WHERE company_name = ?";
-        var newInfo = [req.body.name, req.body.domain, req.params.companyName];
+        var query = "UPDATE company SET company_name = ?, company_domain = ?, company_email = ? WHERE company_name = ?";
+        var newInfo = [req.body.name, req.body.domain, req.body.co_email, req.params.companyName];
 
         connection.query(query, newInfo, function(err, result) {
             if (err) throw err;
@@ -151,7 +150,7 @@ module.exports = function(app, passport) {
             res.render('editInput.ejs', {
                 name: req.body.name,
                 domain: req.body.domain,
-                email: req.body.email
+                email: req.body.co_email
             });
         })
     });
