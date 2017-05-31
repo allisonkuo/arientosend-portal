@@ -121,7 +121,10 @@ module.exports = function(app, passport) {
 
     // generate input boxes to edit company info
     app.get('/edit/:companyName', isLoggedIn, function(req, res) {
-        res.render('editInput.ejs');
+        console.log(req.params);
+        res.render('editInput.ejs', {
+            name: req.params.companyName
+        });
     });
 
 
