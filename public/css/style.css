@@ -71,7 +71,7 @@ input.login[type="password"]::placeholder {
 	border-color: white;
 }
 
-/*** style for other input boxes ***/
+/*** style for create input boxes ***/
 input.input-box[type="text"] {
 	background: transparent;
 	border: 1px solid white;
@@ -84,6 +84,21 @@ input.input-box[type="text"] {
 }
 
 input.input-box[type="text"]::placeholder {
+	color: white;
+}
+
+input.input-box[type="password"] {
+	background: transparent;
+	border: 1px solid white;
+	padding: 25px 20px 25px 20px;
+	width: 300px;
+	margin-bottom: 20px;
+
+	color: white;
+	font-size: 18px;
+}
+
+input.input-box[type="password"]::placeholder {
 	color: white;
 }
 
@@ -188,6 +203,21 @@ input.input-edit[type="text"] {
 }
 
 input.input-edit[type="text"]::placeholder {
+	color: white;
+}
+
+input.input-edit[type="password"] {
+	background: transparent;
+	border: none;
+	padding: 25px 20px 25px 20px;
+	width: 300px;
+	margin-bottom: 20px;
+
+	color: white;
+	font-size: 18px;
+}
+
+input.input-edit[type="password"]::placeholder {
 	color: white;
 }
 
