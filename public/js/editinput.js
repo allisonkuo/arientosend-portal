@@ -5,11 +5,13 @@ $(document).ready(function() {
 		if ($('.input-edit').is('[readonly]')) {
 			$('.input-edit').prop('readonly', false); // turns readonlsy off
 			$('.input-edit[type="text"]').css({'border': '1px solid white'}); // change styling to show editable
+			$('.input-edit[type="password"]').css({'border': '1px solid white'});
 			$('#edit-div').show();
 		}
 		else {
 			$('.input-edit').prop('readonly', true); // make readonly
 			$('.input-edit[type="text"]').css({'border': 'none'}); // turn off borders when read only
+			$('.input-edit[type="password"]').css({'border': 'none'});
 			$('#edit-div').hide();
 		}
 	});

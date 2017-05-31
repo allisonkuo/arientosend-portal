@@ -133,6 +133,7 @@ module.exports = function(app, passport) {
             res.render('editInput.ejs', {
                 name: name,
                 domain: info[0].company_domain,
+                email: info[0].company_email
 
             });
         });
@@ -149,7 +150,8 @@ module.exports = function(app, passport) {
         
             res.render('editInput.ejs', {
                 name: req.body.name,
-                domain: req.body.domain
+                domain: req.body.domain,
+                email: req.body.email
             });
         })
     });
