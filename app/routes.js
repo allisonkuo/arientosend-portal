@@ -122,8 +122,23 @@ module.exports = function(app, passport) {
     // generate input boxes to edit company info
     app.get('/edit/:companyName', isLoggedIn, function(req, res) {
         console.log(req.params);
-        res.render('editInput.ejs', {
-            name: req.params.companyName
+        // get info of chosen company
+        var connection = db();
+
+        var query = "SELECT * FROM company WHERE company_name = ?";
+        var name = req.params.companyName;
+        var info;
+
+        connection.query(query, [name], function(err, rows, fields) {
+            if (err) throw err;
+            info = rows;
+            console.log(info);
+
+            res.render('editInput.ejs', {
+                name: name,
+                domain: info[0].company_domain,
+                
+            });
         });
     });
 

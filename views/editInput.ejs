@@ -25,7 +25,26 @@
 	
 	<div class="col-sm-3 center-block">
 		<h1 id="login-header"><%= name %></h1>
+
+		<!-- EDIT -->
+	    <form>
+			<div class="form-group stack">
+				<input type="text" class="form-control input-box" name="name" placeholder="<%= name %>">
+			</div>
+			<div class="form-group stack">
+				<input type="text" class="form-control input-box" name="domain" placeholder="<%= domain %>">
+			</div>
+			<div class="form-group stack">
+				<input type="text" class="form-control input-box" name="co_email" placeholder="Email">
+			</div>
+			<div class="form-group stack">
+				<input type="text" class="form-control input-box" name="co_password" placeholder="Password">
+			</div>
+
+			<div class="clickable"><button id="create">EDIT</button></div>
+		</form>
 	</div>
+
 </div>
 
 </body>
