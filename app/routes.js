@@ -1,5 +1,6 @@
 // app/routes.js
 var db 	= require('../config/database');
+var connection = db();
 
 module.exports = function(app, passport) {
 
@@ -74,7 +75,6 @@ module.exports = function(app, passport) {
 	
 	// process the company creation
     app.post('/create', function(req, res) {
-        var connection = db();
 		console.log(req.body);
 		var sql = "INSERT INTO company (company_name, company_domain, company_email, company_password) VALUES ?";
 		
@@ -87,7 +87,6 @@ module.exports = function(app, passport) {
 
         // TODO: i think there may be a bug here if you try to insert something that already exists
         // or something like that
-        // TODO: handle the case where you hit "create" with no inputs
         // let's look into it
     });
 
@@ -98,8 +97,6 @@ module.exports = function(app, passport) {
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/edit', isLoggedIn, function(req, res) {
         // get list of company names
-        var connection = db();
-
         var query = "SELECT * FROM company";
         var companies = [];
 
@@ -122,9 +119,8 @@ module.exports = function(app, passport) {
     // generate input boxes to edit company info
     app.get('/edit/:companyName', isLoggedIn, function(req, res) {
         console.log(req.params);
-        // get info of chosen company
-        var connection = db();
 
+        // get info of chosen company
         var query = "SELECT * FROM company WHERE company_name = ?";
         var name = req.params.companyName;
         var info;
@@ -137,9 +133,25 @@ module.exports = function(app, passport) {
             res.render('editInput.ejs', {
                 name: name,
                 domain: info[0].company_domain,
-                
+
             });
         });
+    });
+
+    // update company information in database
+    app.post('/edit/:companyName', function(req, res) { 
+        var query = "UPDATE company SET company_name = ?, company_domain = ? WHERE company_name = ?";
+        var newInfo = [req.body.name, req.body.domain, req.params.companyName];
+
+        connection.query(query, newInfo, function(err, result) {
+            if (err) throw err;
+            console.log(result.message);
+        
+            res.render('editInput.ejs', {
+                name: req.body.name,
+                domain: req.body.domain
+            });
+        })
     });
 
 

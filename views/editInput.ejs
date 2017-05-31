@@ -7,6 +7,9 @@
 	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,700" rel="stylesheet"> <!-- font -->
 	<link rel="stylesheet" type="text/css" href="../css/style.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>	
+	<script src="../js/editinput.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-fixed-top">
@@ -24,26 +27,26 @@
 <div class="container-fluid vertical-center">
 	
 	<div class="col-sm-3 center-block">
-		<h1 id="login-header"><%= name %></h1>
+
+		<h1 id="login-header"><%= name %><button id="edit-btn"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></h1>
 
 		<!-- EDIT -->
-	    <form>
+	    <form action="/edit/<%= name %>" method="POST">
 			<div class="form-group stack">
-				<input type="text" class="form-control input-box" name="name" placeholder="<%= name %>">
+				<input type="text" class="form-control input-edit" name="name" value="<%= name %>" readonly>
 			</div>
 			<div class="form-group stack">
-				<input type="text" class="form-control input-box" name="domain" placeholder="<%= domain %>">
+				<input type="text" class="form-control input-edit" name="domain" value="<%= domain %>" readonly>
 			</div>
 			<div class="form-group stack">
-				<input type="text" class="form-control input-box" name="co_email" placeholder="Email">
+				<input type="text" class="form-control input-edit" name="co_email" placeholder="Email" readonly>
 			</div>
 			<div class="form-group stack">
-				<input type="text" class="form-control input-box" name="co_password" placeholder="Password">
+				<input type="text" class="form-control input-edit" name="co_password" placeholder="Password" readonly>
 			</div>
 
-			<div class="clickable"><button id="create">EDIT</button></div>
-		</form>
-	</div>
+			<div class="clickable" id="edit-div"><button type="submit" id="edit" disabled="disabled">EDIT</button></div>
+		</form> 
 
 </div>
 

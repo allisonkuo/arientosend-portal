@@ -165,5 +165,32 @@ a:hover {
 	border: none;
 }
 
+/*** company info ***/
+#info li {
+	list-style-type: none;
+}
 
+#edit-btn {
+	background: transparent;
+	border: none;
+}
 
+/*** style for edit input boxes ***/
+input.input-edit[type="text"] {
+	background: transparent;
+	border: none;
+	padding: 25px 20px 25px 20px;
+	width: 300px;
+	margin-bottom: 20px;
+
+	color: white;
+	font-size: 18px;
+}
+
+input.input-edit[type="text"]::placeholder {
+	color: white;
+}
+
+button:disabled {
+	opacity: 0.3;
+}
