@@ -1,4 +1,5 @@
 // app/routes.js
+var flash = require('connect-flash');
 var db 	= require('../config/database');
 var connection = db();
 
@@ -59,7 +60,7 @@ module.exports = function(app, passport) {
     app.get('/landingpage', isLoggedIn, function(req, res) {
         res.render('landingpage.ejs', {
             user : req.user.login_name, // get the user out of session and pass to template
-			message: req.flash('lpMessage')
+			messages : req.flash('lpMessage')
         });
     });
 
@@ -71,7 +72,7 @@ module.exports = function(app, passport) {
     app.get('/create', isLoggedIn, function(req, res) {
         res.render('create.ejs', {
             user : req.user.login_name, // get the user out of session and pass to template
-			message: req.flash('createMessage')
+			messages : req.flash('createMessage')
         });
     });
 	
@@ -81,17 +82,17 @@ module.exports = function(app, passport) {
 
 		connection.query("SELECT * FROM company WHERE company_domain = ?", [req.body.domain], function(err, result) {
 			if (err) throw err;
-			else if (result) {
-				console.log("company already exists");
-				//req.flash('createMessage', 'Company already exists.');
+			else if (result[0]) {
+				console.log("company domain already exists");
+				req.flash('createMessage', 'Company domain already exists.');
 				res.redirect('/create');
 			}
 			else {
 				connection.query("SELECT * FROM company WHERE company_email = ?", [req.body.co_email], function(err, result) {
 					if (err) throw err;
-					else if (result) {
-						console.log("company already exists");
-						//req.flash('createMessage', 'Company already exists.');
+					else if (result[0]) {
+						console.log("company email already exists");
+						req.flash('createMessage', 'Company email already exists.');
 						res.redirect('/create');
 					}
 					else {
@@ -102,7 +103,7 @@ module.exports = function(app, passport) {
 							if (err) throw err;
 							else {
 								//console.log("Number of records inserted: " + result.affectedRows);
-								//req.flash('lpMessage', 'Company created successfully');
+								req.flash('lpMessage', 'Company created successfully');
 								res.redirect('/landingpage');
 							}
 						});
