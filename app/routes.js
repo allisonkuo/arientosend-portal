@@ -93,7 +93,12 @@ module.exports = function(app, passport) {
 	
 	app.get('/set2fa', isLoggedIn, ensureTotp, function(req, res){
 		var url;
-		if(!req.user.has2fa){
+		console.log(req.query.error);
+		if(req.query.error == '1'){
+			console.log('inerr');
+			url = req.session.url;
+		}
+		else if(!req.user.has2fa){
 			var secret = base32.encode(crypto.randomBytes(16));
 			secret = secret.toString().replace(/=/g, ''); //formatting for gAuth
 			var qrData = sprintf('otpauth://totp/%s?secret=%s', req.user.username, secret);
@@ -103,6 +108,7 @@ module.exports = function(app, passport) {
 			
 			//TODO: generate qr code
 			 url = "https://chart.googleapis.com/chart?chs=166x166&chld=L|0&cht=qr&chl=" + qrData;
+			 req.session.url = url;
 		}
 		res.render('set2fa.ejs',{
 			message: req.flash('set2faMessage'),
@@ -116,7 +122,7 @@ module.exports = function(app, passport) {
 	
 	app.post('/set2fa', passport.authenticate('totp', {
 			successRedirect : '/mod2fa',
-			failureRedirect : '/set2fa?error',
+			failureRedirect : '/set2fa?error=1',
 			failureFlash : true
 	}));
 	
