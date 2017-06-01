@@ -72,7 +72,7 @@ module.exports = function(app, passport) {
     app.get('/create', isLoggedIn, function(req, res) {
         res.render('create.ejs', {
             user : req.user.login_name, // get the user out of session and pass to template
-			messages : req.flash('createMessage')
+			message : req.flash('createMessage')
         });
     });
 	
@@ -80,6 +80,7 @@ module.exports = function(app, passport) {
     app.post('/create', function(req, res) {
 		console.log(req.body);
 
+        // make sure not duplicate
 		connection.query("SELECT * FROM company WHERE company_domain = ?", [req.body.domain], function(err, result) {
 			if (err) throw err;
 			else if (result[0]) {
@@ -103,8 +104,8 @@ module.exports = function(app, passport) {
 							if (err) throw err;
 							else {
 								//console.log("Number of records inserted: " + result.affectedRows);
-								req.flash('lpMessage', 'Company created successfully');
-								res.redirect('/landingpage');
+								req.flash('createMessage', 'Company created successfully');
+								res.redirect('/create');
 							}
 						});
 					}
