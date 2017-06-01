@@ -32,6 +32,11 @@
 
 		<h1 id="login-header"><%= name %><button id="edit-btn"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button></h1>
 
+		<!-- show any messages that come back with edit -->
+        <% if (message.length > 0) { %>
+            <div class="alert alert-danger stack" style="margin-bottom: 20px"><%= message %></div>
+        <% } %>
+		
 		<!-- EDIT -->
 	    <form action="/edit/<%= name %>" method="POST">
 			<div class="form-group stack">

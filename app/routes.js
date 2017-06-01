@@ -254,8 +254,8 @@ module.exports = function(app, passport) {
 
             res.render('edit.ejs', {
                 user : req.user, // get the user out of session and pass to template
-                companies: companies // pass company names to template
-
+                companies: companies, // pass company names to template
+				message : req.flash('editMessage')
             });
 
         });
@@ -281,28 +281,80 @@ module.exports = function(app, passport) {
                 name: name,
                 domain: info[0].company_domain,
                 co_email: info[0].company_email,
-				co_password: info[0].company_password
+				co_password: info[0].company_password,
+				message : req.flash('editInputMessage')
             });
         });
     });
 
     // update company information in database
-    app.post('/edit/:companyName', function(req, res) { 
-        var query = "UPDATE company SET company_name = ?, company_domain = ?, company_email = ?, company_password = ? WHERE company_name = ?";
-        var newInfo = [req.body.name, req.body.domain, req.body.co_email, req.body.co_password, req.params.companyName];
-		
-        connection.query(query, newInfo, function(err, result) {
+    app.post('/edit/:companyName', function(req, res) {
+		var query = "SELECT * FROM company WHERE company_name = ?";
+		var name = req.params.companyName;
+		var info;
+
+        connection.query(query, [name], function(err, rows, fields) {
             if (err) throw err;
-            console.log(result.message);
-        
-            res.render('editInput.ejs', {
-				user : req.user,
-                name: req.body.name,
-                domain: req.body.domain,
-                co_email: req.body.co_email,
-				co_password: req.body.co_password
-            });
-        })
+            info = rows;
+            console.log(info);
+		});
+
+		// make sure not duplicate
+		// check duplicate company names
+		connection.query("SELECT * FROM company WHERE company_name = ?", [req.body.name], function(err, result) {
+			if (err) throw err;
+			else if (result[0] && result[0].company_name != name) {
+				console.log("company name already exists");
+				req.flash('editMessage', 'Company name already exists.');
+				res.redirect('/edit');
+			}
+			else {
+				// check duplicate company domains
+				connection.query("SELECT * FROM company WHERE company_domain = ?", [req.body.domain], function(err, result) {
+					if (err) throw err;
+					else if (result[0] && result[0].company_name != name) {
+						console.log("company domain already exists");
+						req.flash('editMessage', 'Company domain already exists.');
+						res.redirect('/edit');
+					}
+					else {
+						// check duplicate company emails
+						connection.query("SELECT * FROM company WHERE company_email = ?", [req.body.co_email], function(err, result) {
+							if (err) throw err;
+							else if (result[0] && result[0].company_name != name) {
+								console.log("company email already exists");
+								req.flash('editMessage', 'Company email already exists.');
+								res.redirect('/edit');
+							}
+							else if (!validator.isEmail(req.body.co_email)) { 
+								console.log("invalid email");
+								req.flash('editMessage', 'Please submit a valid email.');
+								res.redirect('/edit');
+							}
+							else {
+								// if no duplicate information, update the company
+								var updateQuery = "UPDATE company SET company_name = ?, company_domain = ?, company_email = ?, company_password = ? WHERE company_name = ?";
+								var newInfo = [req.body.name, req.body.domain, req.body.co_email, req.body.co_password, name];
+								
+								connection.query(updateQuery, newInfo, function(err, result) {
+									if (err) throw err;
+									console.log(result.message);
+									req.flash('editInputMessage', 'Company edited successfully');
+									res.render('editInput.ejs', {
+										user : req.user,
+										name: req.body.name,
+										domain: req.body.domain,
+										co_email: req.body.co_email,
+										co_password: req.body.co_password,
+										message : req.flash('editInputMessage')
+									});
+								})
+							}
+						})
+					}
+				})
+			}
+		})  
     });
 
 

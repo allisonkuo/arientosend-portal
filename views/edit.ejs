@@ -29,6 +29,11 @@
 	<div class="center-block">
 		<h1 id="login-header">COMPANIES</h1>
 		
+		<!-- show any messages that come from an edit -->
+        <% if (message.length > 0) { %>
+            <div class="alert alert-danger stack" style="margin-bottom: 20px"><%= message %></div>
+        <% } %>
+		
 		<!-- list of companies -->
 		<div style="margin-bottom: 20px">
 		<% for (var i in companies) { %>
