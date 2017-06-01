@@ -58,7 +58,8 @@ module.exports = function(app, passport) {
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/landingpage', isLoggedIn, function(req, res) {
         res.render('landingpage.ejs', {
-            user : req.user.login_name // get the user out of session and pass to template
+            user : req.user.login_name, // get the user out of session and pass to template
+			message: req.flash('lpMessage')
         });
     });
 
@@ -69,22 +70,47 @@ module.exports = function(app, passport) {
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/create', isLoggedIn, function(req, res) {
         res.render('create.ejs', {
-            user : req.user.login_name // get the user out of session and pass to template
+            user : req.user.login_name, // get the user out of session and pass to template
+			message: req.flash('createMessage')
         });
     });
 	
 	// process the company creation
     app.post('/create', function(req, res) {
 		console.log(req.body);
-		var sql = "INSERT INTO company (company_name, company_domain, company_email, company_password) VALUES ?";
-		
-		var newCompany = [[req.body.name, req.body.domain, req.body.co_email, req.body.co_password]];
-		
-		connection.query(sql, [newCompany], function(err, result) {
-			if (err) throw err;
-			console.log("Number of records inserted: " + result.affectedRows);
-		});	
 
+		connection.query("SELECT * FROM company WHERE company_domain = ?", [req.body.domain], function(err, result) {
+			if (err) throw err;
+			else if (result) {
+				console.log("company already exists");
+				//req.flash('createMessage', 'Company already exists.');
+				res.redirect('/create');
+			}
+			else {
+				connection.query("SELECT * FROM company WHERE company_email = ?", [req.body.co_email], function(err, result) {
+					if (err) throw err;
+					else if (result) {
+						console.log("company already exists");
+						//req.flash('createMessage', 'Company already exists.');
+						res.redirect('/create');
+					}
+					else {
+						var sql = "INSERT INTO company (company_name, company_domain, company_email, company_password) VALUES ?";
+						var newCompany = [[req.body.name, req.body.domain, req.body.co_email, req.body.co_password]];
+					
+						connection.query(sql, [newCompany], function(err, result) {
+							if (err) throw err;
+							else {
+								//console.log("Number of records inserted: " + result.affectedRows);
+								//req.flash('lpMessage', 'Company created successfully');
+								res.redirect('/landingpage');
+							}
+						});
+					}
+				})
+			}
+		})
+		
         // TODO: i think there may be a bug here if you try to insert something that already exists
         // or something like that
         // let's look into it
