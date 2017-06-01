@@ -4,13 +4,26 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>Ariento Admin Portal</title>
+	<title>Ariento Admin Portal - Add Admin Account</title>
 	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load boostrap css -->
 	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,700" rel="stylesheet"> <!-- font -->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
+<nav class="navbar navbar-fixed-top">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav navbar-right">
+			<li>WELCOME, <%= user.username%></li>
+            <li><a href="/landingpage"> HOME</a></li>
+            <li><a href="/create"> CREATE</a></li>
+            <li><a href="/edit"> EDIT</a></li>
+            <li><a href="#"><i class="fa fa-cog" aria-hidden="true"></i></a></li>
+            <li><a href="/logout"> LOGOUT</a></li>
+        </ul>
+    </div>
+</nav>
+
 <div class="container-fluid vertical-center">
 	
 	<div class="center-block">
@@ -23,16 +36,16 @@
 		
 		<!-- ACCOUNT INFORMATION -->
 		<form action="/newadmin" method="post">
-			<div class="form-group">
+			<div class="form-group stack">
 	            <input type="text" class="form-control input-box" name="username" placeholder="Username">
 	        </div>
-			<div class="form-group">
+			<div class="form-group stack">
 	            <input type="text" class="form-control input-box" name="email" placeholder="Email">
 	        </div>
-	        <div class="form-group">
+	        <div class="form-group stack">
 	            <input type="password" class="form-control input-box" name="password" placeholder="Password">
 	        </div>
-			<div class="form-group">
+			<div class="form-group stack">
 	            <input type="password" class="form-control input-box" name="password2" placeholder="Confirm Password">
 	        </div>
 

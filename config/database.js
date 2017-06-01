@@ -10,6 +10,17 @@ var dbconfig = {
 	'companies_table': 'company'
 };
 
+//db has: username, password, email, uid, has2fa, totpsecret
+var dkdbconfig = {
+    'connection': {
+        'host': 'cs130db.cijzwabqavtc.us-west-1.rds.amazonaws.com',
+        'user': 'kho',
+        'password': '204315203'
+    },
+	'database': 'CS130_DB',
+    'users_table': 'login',
+};
+
 var mysql = require('mysql');
 var bcrypt = require('bcrypt-nodejs');
 
