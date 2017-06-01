@@ -182,38 +182,50 @@ module.exports = function(app, passport) {
 		console.log(req.body);
 
         // make sure not duplicate
-		connection.query("SELECT * FROM company WHERE company_domain = ?", [req.body.domain], function(err, result) {
+		// check duplicate company names
+		connection.query("SELECT * FROM company WHERE company_name = ?", [req.body.name], function(err, result) {
 			if (err) throw err;
 			else if (result[0]) {
-				console.log("company domain already exists");
-				req.flash('createMessage', 'Company domain already exists.');
+				console.log("company name already exists");
+				req.flash('createMessage', 'Company name already exists.');
 				res.redirect('/create');
 			}
 			else {
-				connection.query("SELECT * FROM company WHERE company_email = ?", [req.body.co_email], function(err, result) {
+				// check duplicate company domains
+				connection.query("SELECT * FROM company WHERE company_domain = ?", [req.body.domain], function(err, result) {
 					if (err) throw err;
 					else if (result[0]) {
-						console.log("company email already exists");
-						req.flash('createMessage', 'Company email already exists.');
+						console.log("company domain already exists");
+						req.flash('createMessage', 'Company domain already exists.');
 						res.redirect('/create');
 					}
 					else {
-						var sql = "INSERT INTO company (company_name, company_domain, company_email, company_password) VALUES ?";
-						var newCompany = [[req.body.name, req.body.domain, req.body.co_email, req.body.co_password]];
-					
-						connection.query(sql, [newCompany], function(err, result) {
+						// check duplicate company emails
+						connection.query("SELECT * FROM company WHERE company_email = ?", [req.body.co_email], function(err, result) {
 							if (err) throw err;
-							else {
-								//console.log("Number of records inserted: " + result.affectedRows);
-								req.flash('createMessage', 'Company created successfully');
+							else if (result[0]) {
+								console.log("company email already exists");
+								req.flash('createMessage', 'Company email already exists.');
 								res.redirect('/create');
 							}
-						});
+							else {
+								var sql = "INSERT INTO company (company_name, company_domain, company_email, company_password) VALUES ?";
+								var newCompany = [[req.body.name, req.body.domain, req.body.co_email, req.body.co_password]];
+							
+								connection.query(sql, [newCompany], function(err, result) {
+									if (err) throw err;
+									else {
+										//console.log("Number of records inserted: " + result.affectedRows);
+										req.flash('createMessage', 'Company created successfully');
+										res.redirect('/create');
+									}
+								});
+							}
+						})
 					}
 				})
 			}
 		})
-		
         // TODO: i think there may be a bug here if you try to insert something that already exists
         // or something like that
         // let's look into it
