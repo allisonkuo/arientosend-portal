@@ -39,8 +39,9 @@ input.login[type="text"] {
 	border-right: none;
 	border-left: none;
 	border-width: 2px;
-	padding-top: 25px;
-	padding-bottom: 25px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	height: 100%;
 
 	color: white;
 	font-size: 18px;
@@ -49,6 +50,7 @@ input.login[type="text"] {
 input.login[type="text"]::placeholder {
 	color: white;
 	border-color: white;
+	height: 100%;
 }
 
 input.login[type="password"] {
@@ -57,9 +59,10 @@ input.login[type="password"] {
 	border-right: none;
 	border-left: none;
 	border-width: 2px;
-	padding-top: 25px;
-	padding-bottom: 25px;
+	padding-top: 15px;
+	padding-bottom: 15px;
 	margin-top: 25px;
+	height: 100%;
 
 	color: white;
 	font-size: 18px;
