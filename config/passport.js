@@ -1,9 +1,12 @@
 // expose this function to our app using module.exports
 var LocalStrategy   = require('passport-local').Strategy;
+var TotpStrategy = require('passport-totp').Strategy;
 
 // import database connection
 var users = require('../app/models/user');
 var User = users();
+
+var base32 = require('thirty-two');
 
 module.exports = function(passport) {
 
@@ -93,7 +96,28 @@ module.exports = function(passport) {
 			});
 		})
 	);
-
+	
+	passport.use('totp', new TotpStrategy({
+			codeField : 'code'
+		},
+		function(user, done){
+			done(null, base32.decode(user.totpsecret), 30);
+		})
+	);
+	
+	passport.use('totp-login', new TotpStrategy({
+			codeField : 'code'
+		},
+		function(user, done){
+			done(null, base32.decode(user.totpsecret), 30);
+		})
+	);
+	console.log('fallthrough?');
+	passport.registerTotp = function(username, state, secret){
+		User.set2fa(username, state, secret);
+	};
+	
+	
 };
 
 

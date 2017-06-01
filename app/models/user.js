@@ -28,7 +28,6 @@ module.exports = function(){
 	};
 	
 	User.checkLogin = function(password){
-		console.log('1.');
 		console.log(bcrypt.hashSync(password, bcrypt.genSaltSync(8), null));
 		console.log(this.pass);
 		return bcrypt.compareSync(password, this.pass);
@@ -39,6 +38,26 @@ module.exports = function(){
 		console.log(sql);
 		connection.query(sql, function(err, results){ //Just need to check if an error is thrown. Otherwise, we can assume the info was entered.
 			callback(err);
+		});
+	};
+	
+	User.set2fa = function(username, state, secret){
+		var sql = 'SELECT * FROM login WHERE username = ' + connection.escape(username);
+		connection.query(sql, function(err, results){
+			if(!err && results.length){
+				var has2fa = state ? '1' : '0';
+				sql = 'UPDATE login SET has2fa = ' + has2fa + ', totpsecret = ' + connection.escape(secret) + ' WHERE username = ' + connection.escape(username);
+				connection.query(sql, function(err,results){
+					if(err){
+						return err;
+					} else{
+						return null;
+					}
+				});
+				
+			} else {
+				return err;
+			}
 		});
 	};
 	

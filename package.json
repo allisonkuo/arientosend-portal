@@ -7,6 +7,7 @@
     "body-parser": "~1.0.0",
     "connect-flash": "~0.1.1",
     "cookie-parser": "~1.0.0",
+    "crypto": "0.0.3",
     "ejs": "~0.8.5",
     "express": "~4.0.0",
     "express-session": "~1.0.0",
@@ -17,7 +18,10 @@
     "mysql": "latest",
     "passport": "~0.1.17",
     "passport-local": "~0.1.6",
+    "passport-totp": "0.0.2",
+    "qrcode": "^0.8.2",
     "sequelize": "^3.30.4",
-    "speakeasy": "^2.0.0"
+    "sprintf": "^0.1.5",
+    "thirty-two": "^1.0.2"
   }
 }
