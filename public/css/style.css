@@ -75,9 +75,10 @@ input.login[type="password"]::placeholder {
 input.input-box[type="text"] {
 	background: transparent;
 	border: 1px solid white;
-	padding: 25px 20px 25px 20px;
+	padding: 15px 20px 15px 20px;
 	width: 300px;
 	margin-bottom: 20px;
+	height: 100%;
 
 	color: white;
 	font-size: 18px;
@@ -85,14 +86,16 @@ input.input-box[type="text"] {
 
 input.input-box[type="text"]::placeholder {
 	color: white;
+	height: 100%;
 }
 
 input.input-box[type="password"] {
 	background: transparent;
 	border: 1px solid white;
-	padding: 25px 20px 25px 20px;
+	padding: 10px 20px 10px 20px;
 	width: 300px;
 	margin-bottom: 20px;
+	height: 100%;
 
 	color: white;
 	font-size: 18px;
@@ -100,6 +103,7 @@ input.input-box[type="password"] {
 
 input.input-box[type="password"]::placeholder {
 	color: white;
+	height: 100%;
 }
 
 
@@ -194,8 +198,9 @@ a:hover {
 input.input-edit[type="text"] {
 	background: transparent;
 	border: none;
-	padding: 25px 20px 25px 20px;
+	padding: 15px 20px 15px 20px;
 	width: 300px;
+	height: 100%;
 	margin-bottom: 20px;
 
 	color: white;
@@ -204,13 +209,15 @@ input.input-edit[type="text"] {
 
 input.input-edit[type="text"]::placeholder {
 	color: white;
+	height: 100%;
 }
 
 input.input-edit[type="password"] {
 	background: transparent;
 	border: none;
-	padding: 25px 20px 25px 20px;
+	padding: 15px 20px 15px 20px;
 	width: 300px;
+	height: 100%;
 	margin-bottom: 20px;
 
 	color: white;
@@ -219,6 +226,7 @@ input.input-edit[type="password"] {
 
 input.input-edit[type="password"]::placeholder {
 	color: white;
+	height: 100%;
 }
 
 button:disabled {
