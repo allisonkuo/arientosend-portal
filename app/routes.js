@@ -208,7 +208,11 @@ module.exports = function(app, passport) {
 								req.flash('createMessage', 'Company email already exists.');
 								res.redirect('/create');
 							}
+							/*else if email is not valid { 
+								
+							}*/
 							else {
+								// if new company, add the new company's information
 								var sql = "INSERT INTO company (company_name, company_domain, company_email, company_password) VALUES ?";
 								var newCompany = [[req.body.name, req.body.domain, req.body.co_email, req.body.co_password]];
 							
@@ -226,9 +230,6 @@ module.exports = function(app, passport) {
 				})
 			}
 		})
-        // TODO: i think there may be a bug here if you try to insert something that already exists
-        // or something like that
-        // let's look into it
     });
 
     // =====================================
@@ -275,24 +276,27 @@ module.exports = function(app, passport) {
 				user : req.user,
                 name: name,
                 domain: info[0].company_domain,
-                email: info[0].company_email
+                co_email: info[0].company_email,
+				co_password: info[0].company_password
             });
         });
     });
 
     // update company information in database
     app.post('/edit/:companyName', function(req, res) { 
-        var query = "UPDATE company SET company_name = ?, company_domain = ?, company_email = ? WHERE company_name = ?";
-        var newInfo = [req.body.name, req.body.domain, req.body.co_email, req.params.companyName];
+        var query = "UPDATE company SET company_name = ?, company_domain = ?, company_email = ?, company_password = ? WHERE company_name = ?";
+        var newInfo = [req.body.name, req.body.domain, req.body.co_email, req.body.co_password, req.params.companyName];
 
         connection.query(query, newInfo, function(err, result) {
             if (err) throw err;
             console.log(result.message);
         
             res.render('editInput.ejs', {
+				user : req.user,
                 name: req.body.name,
                 domain: req.body.domain,
-                email: req.body.co_email
+                co_email: req.body.co_email,
+				co_password: req.body.co_password
             });
         })
     });
