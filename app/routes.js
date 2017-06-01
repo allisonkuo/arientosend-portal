@@ -290,6 +290,7 @@ module.exports = function(app, passport) {
             console.log(result.message);
         
             res.render('editInput.ejs', {
+				user : req.user,
                 name: req.body.name,
                 domain: req.body.domain,
                 email: req.body.co_email
