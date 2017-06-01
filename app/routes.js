@@ -9,6 +9,8 @@ var sprintf = require('sprintf');
 var base32 = require('thirty-two');
 var crypto = require('crypto');
 
+var validator = require('validator');
+
 module.exports = function(app, passport) {
 
     // =====================================
@@ -208,9 +210,11 @@ module.exports = function(app, passport) {
 								req.flash('createMessage', 'Company email already exists.');
 								res.redirect('/create');
 							}
-							/*else if email is not valid { 
-								
-							}*/
+							else if (!validator.isEmail(req.body.co_email)) { 
+								console.log("invalid email");
+								req.flash('createMessage', 'Please submit a valid email.');
+								res.redirect('/create');
+							}
 							else {
 								// if new company, add the new company's information
 								var sql = "INSERT INTO company (company_name, company_domain, company_email, company_password) VALUES ?";
@@ -286,7 +290,7 @@ module.exports = function(app, passport) {
     app.post('/edit/:companyName', function(req, res) { 
         var query = "UPDATE company SET company_name = ?, company_domain = ?, company_email = ?, company_password = ? WHERE company_name = ?";
         var newInfo = [req.body.name, req.body.domain, req.body.co_email, req.body.co_password, req.params.companyName];
-
+		
         connection.query(query, newInfo, function(err, result) {
             if (err) throw err;
             console.log(result.message);
