@@ -28,7 +28,7 @@
 		<h1 id="login-header">MANAGE 2 FACTOR AUTHENTICATION</h1>
 
 	    <!-- show any messages that come back with authentication -->
-	    <% if (query == 'error') { %>
+	    <% if (query.error == '1') { %>
 	        <div class="alert alert-danger">Code does not match!</div>
 	    <% } %>
 

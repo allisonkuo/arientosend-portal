@@ -47,7 +47,7 @@ module.exports = function(app, passport) {
 
             res.redirect('/');*/
 			if(req.user.has2fa){
-				req.session.method = 'totp'; //TODO: this should really get moved to after 2fa is authenticated.
+				
 				res.redirect('/2falogin');
 			} else {
 				req.session.method = 'plain';
@@ -72,7 +72,7 @@ module.exports = function(app, passport) {
 			failureFlash : true
 		}),
 		function(req,res){
-			console.log('hi?');
+			req.session.method = 'totp'; 
 			res.redirect('/landingpage');
 		}
 	);
@@ -130,10 +130,22 @@ module.exports = function(app, passport) {
 	});
 	
 	app.post('/set2fa', passport.authenticate('totp', {
-			successRedirect : '/mod2fa',
+			//successRedirect : '/mod2fa',
 			failureRedirect : '/set2fa?error=1',
 			failureFlash : true
-	}));
+		}),
+		function(req,res){
+			var state = req.user.has2fa ? 0 : 1;
+			if(req.user.has2fa){
+				req.session.method = 'plain';
+			} else {
+				req.session.method = 'totp';
+			}
+			passport.registerTotp(req.user.username, state, req.user.totpsecret);
+			req.flash('lpMessage', 'Successfully set 2FA!');
+			res.redirect('/landingpage');
+		}
+	);
 	
 	app.get('/mod2fa', isLoggedIn, ensureTotp, function(req, res){ //TODO: Work this into app.post(/set2fa) (see app.post('/') for inspiration)
 		var state = req.user.has2fa ? 0 : 1;
