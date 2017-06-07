@@ -1,6 +1,23 @@
 // app/routes.js
+/*
+	Copyright 2017, Allison Kuo, Daniel Kho, Jeremy Rotman
+	
+	This file is part of ArientoSend.
 
-//var flash = require('connect-flash');
+    ArientoSend is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    ArientoSend is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with ArientoSend.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 //TODO: See if I can move this out into another module...
 var db 	= require('../config/database');
 var connection = db();
@@ -14,50 +31,29 @@ var validator = require('validator');
 module.exports = function(app, passport) {
 
     // =====================================
-    // HOME PAGE (with login links) ========
-    // =====================================
-    /*app.get('/', function(req, res) {
-        res.render('index.ejs'); // load the index.ejs file
-    });*/
-
-    // =====================================
     // LOGIN ===============================
     // =====================================
-    // show the login form
     app.get('/', function(req, res) {
-
-        // render the page and pass in any flash data if it exists
         res.render('login.ejs', { message: req.flash('loginMessage') }); 
     });
 
     // process the login form
     app.post('/', passport.authenticate('local-login', {
-            //successRedirect : '/2falogin', // TODO: redirect to the secure company section
-            failureRedirect : '/', // redirect back to the login page if there is an error 
-
-            failureFlash : true // allow flash messages
+            failureRedirect : '/', 
+            failureFlash : true 
         }),
-        function(req, res) {
-			/*console.log('Auth!');
-            if (req.body.remember) {
-              req.session.cookie.maxAge = 1000 * 60 * 3;
-            } else {
-              req.session.cookie.expires = false;
-            }
-
-            res.redirect('/');*/
-			if(req.user.has2fa){
-				
+        function(req, res) { //Fallthrough function if authenticate is successful.
+			if(req.user.has2fa){ //Redirect to Two Factor Authentication (2fa) if in use
 				res.redirect('/2falogin');
 			} else {
-				req.session.method = 'plain';
+				req.session.method = 'plain'; //Set authentication method for middleware
 				res.redirect('/landingpage');
 			}
         }
 
     );
 	
-	//2fa login
+	//Process 2fa login 
 	app.get('/2falogin', isLoggedIn, function(req,res) {
 		if(req.user.has2fa){
 			res.render('2falogin.ejs', {message: req.flash('2famessage')});
@@ -67,7 +63,6 @@ module.exports = function(app, passport) {
 	});
 	
 	app.post('/2falogin', passport.authenticate('totp-login', {
-			//successRedirect : '/landingpage',
 			failureRedirect : '/',
 			failureFlash : true
 		}),
@@ -81,7 +76,7 @@ module.exports = function(app, passport) {
 	// NEW ADMIN ===========================
 	// =====================================
 	// Author: Daniel Kho
-	// show admin registration form
+	
 	app.get('/newadmin', isLoggedIn, ensureTotp, function(req, res) {
         res.render('newadmin.ejs', {
 			message: req.flash('addAdminMessage'),
@@ -90,7 +85,7 @@ module.exports = function(app, passport) {
     });
 	
 	app.post('/newadmin', passport.authenticate('local-signup', {
-			successRedirect : '/newadmin',
+			successRedirect : '/landingpage',
 			failureRedirect : '/newadmin',
 			failureFlash : true
 	}));
@@ -111,30 +106,27 @@ module.exports = function(app, passport) {
 			var secret = base32.encode(crypto.randomBytes(16));
 			secret = secret.toString().replace(/=/g, ''); //formatting for gAuth
 			var qrData = sprintf('otpauth://totp/%s?secret=%s', req.user.username, secret);
-			//req.user.secret = secret; //TODO: how to store this?
 			
-			passport.registerTotp(req.user.username, 0, secret);
+			passport.registerTotp(req.user.username, 0, secret); //Currently store secret in database for easy verification. This does not enable 2fa.
 			
-			//TODO: generate qr code
-			 url = "https://chart.googleapis.com/chart?chs=166x166&chld=L|0&cht=qr&chl=" + qrData;
+			 url = "https://chart.googleapis.com/chart?chs=166x166&chld=L|0&cht=qr&chl=" + qrData; //Uses Google Chart API to generate a QR Code
 			 req.session.url = url;
 		}
 		res.render('set2fa.ejs',{
 			message: req.flash('set2faMessage'),
 			user: req.user,
 			has2fa: req.user.has2fa,
-			//TODO: pass in QR code
 			qrUrl : url,
 			query : req.query
 		});
 	});
 	
 	app.post('/set2fa', passport.authenticate('totp', {
-			//successRedirect : '/mod2fa',
 			failureRedirect : '/set2fa?error=1',
 			failureFlash : true
 		}),
 		function(req,res){
+			//TODO: Figure out why this logs out.  Alternately, change it to be a feature.
 			var state = req.user.has2fa ? 0 : 1;
 			if(req.user.has2fa){
 				req.session.method = 'plain';
@@ -143,31 +135,17 @@ module.exports = function(app, passport) {
 			}
 			passport.registerTotp(req.user.username, state, req.user.totpsecret);
 			req.flash('lpMessage', 'Successfully set 2FA!');
-			res.redirect('/landingpage');
+			res.redirect('/landingpage'); //TODO: Never gets here.  it just goes back to login. I think it thinks its failing 2fa login.
 		}
 	);
+
+    // =====================================
+    // MAIN PORTAL =========================
+    // =====================================
 	
-    // =====================================
-    // SIGNUP ==============================
-    // =====================================
-    // show the signup form
-    /*app.get('/signup', function(req, res) {
-        // render the page and pass in any flash data if it exists
-        res.render('signup.ejs', { message: req.flash('signupMessage') });
-    });*/
-
-
-    // process the signup form
-    // app.post('/signup', do all our passport stuff here);
-
-    // =====================================
-    // PROFILE SECTION =====================
-    // =====================================
-    // we will want this protected so you have to be logged in to visit
-    // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/landingpage', isLoggedIn, ensureTotp, function(req, res) {
         res.render('landingpage.ejs', {
-            user : req.user, // get the user out of session and pass to template
+            user : req.user, 
 			message : req.flash('lpMessage')
         });
     });
@@ -175,11 +153,10 @@ module.exports = function(app, passport) {
     // =====================================
     // CREATE COMPANY ======================
     // =====================================
-    // we will want this protected so you have to be logged in to visit
-    // we will use route middleware to verify this (the isLoggedIn function)
+	
     app.get('/create', isLoggedIn, ensureTotp, function(req, res) {
         res.render('create.ejs', {
-            user : req.user, // get the user out of session and pass to template
+            user : req.user, 
 			message : req.flash('createMessage')
         });
     });
@@ -271,10 +248,9 @@ module.exports = function(app, passport) {
     });
 
     // =====================================
-    // EDIT COMPANY ======================
+    // EDIT COMPANY =======================
     // =====================================
-    // we will want this protected so you have to be logged in to visit
-    // we will use route middleware to verify this (the isLoggedIn function)
+	
     app.get('/edit', isLoggedIn, function(req, res) {
         // get list of company names
         var query = "SELECT * FROM company";
@@ -287,7 +263,7 @@ module.exports = function(app, passport) {
             }
 
             res.render('edit.ejs', {
-                user : req.user, // get the user out of session and pass to template
+                user : req.user, 
                 companies: companies, // pass company names to template
 				message : req.flash('editMessage')
             });
@@ -401,7 +377,7 @@ module.exports = function(app, passport) {
         console.log(res.user);
         req.session.destroy(function (err) {
             res.clearCookie('connect.sid');
-            res.redirect('/'); //Inside a callback… bulletproof!
+            res.redirect('/'); 
         });
     });
 };
@@ -409,12 +385,10 @@ module.exports = function(app, passport) {
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
 
-    // if user is authenticated in the session, carry on 
     if (req.isAuthenticated()){
 		console.log('passed auth');
 		return next();
 	}
-    // if they aren't redirect them to the home page
 	console.log('failed auth');
     res.redirect('/');
 }
