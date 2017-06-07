@@ -251,3 +251,9 @@ input.input-edit[type="password"]::placeholder {
 button:disabled {
 	opacity: 0.3;
 }
+
+/*** make company page scrollable ***/
+#scroll {
+	height: 500px;
+	overflow-y: auto;
+}
