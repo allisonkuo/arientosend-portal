@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:8080/" />
+<title>random_invalid_email</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">random_invalid_email</td></tr>
+</thead><tbody>
+<tr>
+	<td>type</td>
+	<td>name=name</td>
+	<td>javascript{&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;.split(&quot;&quot;).filter(function(e, i, a) { return Math.random() &gt; 0.8 }).join(&quot;&quot;);}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=domain</td>
+	<td>javascript{&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;.split(&quot;&quot;).filter(function(e, i, a) { return Math.random() &gt; 0.8 }).join(&quot;&quot;);}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=co_email</td>
+	<td>javascript{&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;.split(&quot;&quot;).filter(function(e, i, a) { return Math.random() &gt; 0.8 }).join(&quot;&quot;);}</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=co_password</td>
+	<td>anythingreally</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>name=co_password</td>
+	<td>${KEY_TAB}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=create</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div/div/div</td>
+	<td>Please submit a valid email.</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
