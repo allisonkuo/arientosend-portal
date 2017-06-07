@@ -91,7 +91,7 @@ module.exports = function(passport) {
 					if(err){
 						throw err;
 					}
-					return done(null, true, req.flash('lpMessage', 'Success! User added!'));
+					return done(null, req.user, req.flash('addAdminMessage', 'Success! User added!'));
 				});
 			});
 		})

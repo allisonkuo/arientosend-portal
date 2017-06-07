@@ -90,7 +90,7 @@ module.exports = function(app, passport) {
     });
 	
 	app.post('/newadmin', passport.authenticate('local-signup', {
-			successRedirect : '/landingpage',
+			successRedirect : '/newadmin',
 			failureRedirect : '/newadmin',
 			failureFlash : true
 	}));
@@ -147,12 +147,6 @@ module.exports = function(app, passport) {
 		}
 	);
 	
-	app.get('/mod2fa', isLoggedIn, ensureTotp, function(req, res){ //TODO: Work this into app.post(/set2fa) (see app.post('/') for inspiration)
-		var state = req.user.has2fa ? 0 : 1;
-		passport.registerTotp(req.user.username, state, req.user.totpsecret);
-		res.redirect('/landingpage');
-	});
-	
     // =====================================
     // SIGNUP ==============================
     // =====================================
@@ -175,7 +169,6 @@ module.exports = function(app, passport) {
         res.render('landingpage.ejs', {
             user : req.user, // get the user out of session and pass to template
 			messages : req.flash('lpMessage')
-
         });
     });
 
