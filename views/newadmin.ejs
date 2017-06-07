@@ -9,6 +9,8 @@
 	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,700" rel="stylesheet"> <!-- font -->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>   
 </head>
 <body>
 <nav class="navbar navbar-fixed-top">
@@ -50,9 +52,29 @@
 	            <input type="password" class="form-control input-box" name="password2" placeholder="Confirm Password">
 	        </div>
 
-	        <div class="text-center"><button type="submit" id="submit"><img src="/img/arrow.png" id="arrow"/></button></div>
+	        <div class="clickable"><button  type="submit" id="create" disabled="disabled">CREATE</button></div>
 		</form>
 	</div>
+
+	 <script>
+    // disable create button if not all inputs are provided
+    $('form').find('input').keyup(function() {
+
+        var empty = false;
+        $('form').find('input').each(function() {
+            if ($(this).val() == '') {
+                console.log($(this).val());
+                empty = true;
+            }
+        });
+
+        if (empty) {
+            $('#create').attr('disabled', 'disabled'); 
+        } else {
+            $('#create').removeAttr('disabled'); 
+        }
+    });
+    </script>
 
 
 </div>
