@@ -24,7 +24,7 @@
 <tr>
 	<td>type</td>
 	<td>name=domain</td>
-	<td>javascript{&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;.split(&quot;&quot;).filter(function(e, i, a) { return Math.random() &gt; 0.8 }).join(&quot;&quot;);}</td>
+	<td>javascript{&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;.split(&quot;&quot;).filter(function(e, i, a) { return Math.random() &gt; 0.8 }).join(&quot;&quot;) + &quot;@email.com&quot;;}</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -47,11 +47,15 @@
 	<td></td>
 </tr>
 <tr>
-	<td>assertElementPresent</td>
+	<td>assertNotText</td>
 	<td>//div/div/div</td>
+	<td>Oops! An error has occurred. Please try again.</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=HOME</td>
 	<td></td>
 </tr>
-
 </tbody></table>
 </body>
 </html>

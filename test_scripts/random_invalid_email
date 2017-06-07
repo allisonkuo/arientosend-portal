@@ -12,6 +12,11 @@
 <tr><td rowspan="1" colspan="3">random_invalid_email</td></tr>
 </thead><tbody>
 <tr>
+	<td>clickAndWait</td>
+	<td>link=CREATE PAGE</td>
+	<td></td>
+</tr>
+<tr>
 	<td>type</td>
 	<td>name=name</td>
 	<td>javascript{&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;.split(&quot;&quot;).filter(function(e, i, a) { return Math.random() &gt; 0.8 }).join(&quot;&quot;);}</td>
@@ -19,7 +24,7 @@
 <tr>
 	<td>type</td>
 	<td>name=domain</td>
-	<td>javascript{&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;.split(&quot;&quot;).filter(function(e, i, a) { return Math.random() &gt; 0.8 }).join(&quot;&quot;);}</td>
+	<td>javascript{&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;.split(&quot;&quot;).filter(function(e, i, a) { return Math.random() &gt; 0.8 }).join(&quot;&quot;) + &quot;@email.com&quot;;}</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -46,7 +51,11 @@
 	<td>//div/div/div</td>
 	<td>Please submit a valid email.</td>
 </tr>
-
+<tr>
+	<td>clickAndWait</td>
+	<td>link=HOME</td>
+	<td></td>
+</tr>
 </tbody></table>
 </body>
 </html>
