@@ -302,10 +302,15 @@ module.exports = function(app, passport) {
 		var query = "SELECT * FROM company WHERE company_name = ?";
 		var name = req.params.companyName;
 		var info;
-		var domain_pattern = new RegExp('((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|');
+		
+		var domain_pattern = new RegExp('(([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}', 'i');
 
         connection.query(query, [name], function(err, rows, fields) {
-            if (err) throw err;
+            if (err) {
+				console.log("database error");
+				req.flash('editMessage', 'Oops! An error has occurred. Please try again.');
+				res.redirect('/edit');
+			}
             info = rows;
             console.log(info);
 		});
@@ -313,7 +318,11 @@ module.exports = function(app, passport) {
 		// make sure not duplicate
 		// check duplicate company names
 		connection.query("SELECT * FROM company WHERE company_name = ?", [req.body.name], function(err, result) {
-			if (err) throw err;
+			if (err) {
+				console.log("database error");
+				req.flash('editMessage', 'Oops! An error has occurred. Please try again.');
+				res.redirect('/edit');
+			}
 			else if (result[0] && result[0].company_name != name) {
 				console.log("company name already exists");
 				req.flash('editMessage', 'Company name already exists.');
@@ -322,7 +331,16 @@ module.exports = function(app, passport) {
 			else {
 				// check duplicate company domains
 				connection.query("SELECT * FROM company WHERE company_domain = ?", [req.body.domain], function(err, result) {
-					if (err) throw err;
+					if (err) {
+						console.log("database error");
+						req.flash('editMessage', 'Oops! An error has occurred. Please try again.');
+						res.redirect('/edit');
+					}
+					else if (!domain_pattern.test(req.body.domain)) {
+						console.log("invaild domain");
+						req.flash('editMessage', 'Please submit a valid domain.');
+						res.redirect('/edit');
+					}
 					else if (result[0] && result[0].company_name != name) {
 						console.log("company domain already exists");
 						req.flash('editMessage', 'Company domain already exists.');
@@ -331,10 +349,9 @@ module.exports = function(app, passport) {
 					else {
 						// check duplicate company emails
 						connection.query("SELECT * FROM company WHERE company_email = ?", [req.body.co_email], function(err, result) {
-							if (err) throw err;
-							else if (result[0] && result[0].company_name != name) {
-								console.log("company email already exists");
-								req.flash('editMessage', 'Company email already exists.');
+							if (err) {
+								console.log("database error");
+								req.flash('editMessage', 'Oops! An error has occurred. Please try again.');
 								res.redirect('/edit');
 							}
 							//ensure email is in email form
@@ -343,13 +360,22 @@ module.exports = function(app, passport) {
 								req.flash('editMessage', 'Please submit a valid email.');
 								res.redirect('/edit');
 							}
+							else if (result[0] && result[0].company_name != name) {
+								console.log("company email already exists");
+								req.flash('editMessage', 'Company email already exists.');
+								res.redirect('/edit');
+							}
 							else {
 								// if no duplicate information, update the company
 								var updateQuery = "UPDATE company SET company_name = ?, company_domain = ?, company_email = ?, company_password = ? WHERE company_name = ?";
 								var newInfo = [req.body.name, req.body.domain, req.body.co_email, req.body.co_password, name];
 								
 								connection.query(updateQuery, newInfo, function(err, result) {
-									if (err) throw err;
+									if (err) {
+										console.log("database error");
+										req.flash('editMessage', 'Oops! An error has occurred. Please try again.');
+										res.redirect('/edit');
+									}
 									console.log(result.message);
 									req.flash('editInputMessage', 'Company edited successfully');
 									res.render('editInput.ejs', {
