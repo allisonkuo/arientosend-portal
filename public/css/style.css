@@ -29,6 +29,11 @@
 	background-size: cover;
 }
 
+.gradient-background {
+	background-image: url("/img/bg.jpg");
+	background-size: cover;
+}
+
 body {
 	background-color: var(--main-color);
 }
