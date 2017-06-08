@@ -289,6 +289,6 @@ button:disabled {
 
 /*** make company page scrollable ***/
 #scroll {
-	height: 500px;
+	height: 450px;
 	overflow-y: auto;
 }

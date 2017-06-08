@@ -53,7 +53,11 @@
 
 		<!-- show any messages that come back with edit -->
         <% if (message.length > 0) { %>
-            <div class="alert alert-danger stack" style="margin-bottom: 20px"><%= message %></div>
+        	<% if (message == "Company edited successfully") { %>
+            	<div class="alert alert-success stack" style="margin-bottom:20px"><%= message %></div>
+            <% } else { %>
+            	<div class="alert alert-danger stack" style="margin-bottom: 20px"><%= message %></div>
+            <% } %>
         <% } %>
 		
 		<!-- EDIT -->
