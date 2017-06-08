@@ -47,6 +47,14 @@ app.use(bodyParser.json());
 app.use(bodyParser());
 app.use(express.static(__dirname + '/public')); // add css and images
 
+// don't load pages when back button is hit after logging out
+app.use(function (req, res, next) {
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
+    next()
+});
+
 app.set('view engine', 'ejs'); // set up ejs for templating
 
 // required for passport
