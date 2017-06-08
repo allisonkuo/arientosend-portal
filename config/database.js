@@ -18,6 +18,10 @@
     along with ArientoSend.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+//DB Schema:
+// login: uid, username, password, email, has2fa, totpsecret
+// company: company_name, company_domain, company_email, company_password, company_id
+
 var dbconfig = {
     'connection': {
         'host': 'arientosenddb.cnrikh4cspia.us-west-2.rds.amazonaws.com',
@@ -25,19 +29,8 @@ var dbconfig = {
         'password': 'arientosend'
     },
 	'database': 'ArientoSend_Database',
-    'users_table': 'login',
+    'users_table': 'login', 
 	'companies_table': 'company'
-};
-
-//db has: username, password, email, uid, has2fa, totpsecret
-var dkdbconfig = {
-    'connection': {
-        'host': 'cs130db.cijzwabqavtc.us-west-1.rds.amazonaws.com',
-        'user': 'kho',
-        'password': '204315203'
-    },
-	'database': 'CS130_DB',
-    'users_table': 'login',
 };
 
 var mysql = require('mysql');
