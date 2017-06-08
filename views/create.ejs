@@ -51,7 +51,11 @@
 
         <!-- show any messages that come back with create -->
         <% if (message.length > 0) { %>
+            <% if (message == "Company created successfully") { %>
+            <div class="alert alert-success stack" style="margin-bottom: 20px"><%= message %></div>
+            <% } else { %>
             <div class="alert alert-danger stack" style="margin-bottom: 20px"><%= message %></div>
+            <% } %>
         <% } %>
 
 

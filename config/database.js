@@ -18,7 +18,7 @@
     along with ArientoSend.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//DB Schema:
+// DB Schema:
 // login: uid, username, password, email, has2fa, totpsecret
 // company: company_name, company_domain, company_email, company_password, company_id
 

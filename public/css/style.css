@@ -18,10 +18,19 @@
     along with ArientoSend.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+/*** define variable ***/
+:root{
+    --main-color: #012c40;
+}
 
-body {
+
+.img-background {
 	background-image: url("/img/night.jpg");
 	background-size: cover;
+}
+
+body {
+	background-color: var(--main-color);
 }
 
 * {
