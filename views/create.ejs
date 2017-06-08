@@ -29,7 +29,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    
 </head>
-<body>
+<body class="plain-background">
 <nav class="navbar navbar-fixed-top">
     <div class="container-fluid">
         <ul class="nav navbar-nav navbar-right">
@@ -52,9 +52,9 @@
         <!-- show any messages that come back with create -->
         <% if (message.length > 0) { %>
             <% if (message == "Company created successfully") { %>
-            <div class="alert alert-success stack" style="margin-bottom: 20px"><%= message %></div>
+                <div class="alert alert-success stack" style="margin-bottom: 20px"><%= message %></div>
             <% } else { %>
-            <div class="alert alert-danger stack" style="margin-bottom: 20px"><%= message %></div>
+                <div class="alert alert-danger stack" style="margin-bottom: 20px"><%= message %></div>
             <% } %>
         <% } %>
 
