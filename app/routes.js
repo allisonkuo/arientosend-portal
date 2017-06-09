@@ -134,7 +134,7 @@ module.exports = function(app, passport) {
 				req.session.method = 'totp';
 			}
 			passport.registerTotp(req.user.username, state, req.user.totpsecret);
-			req.flash('lpMessage', 'Successfully set 2FA!');
+			//req.flash('lpMessage', 'Successfully set 2FA!');
 			res.redirect('/landingpage'); //TODO: Never gets here.  it just goes back to login. I think it thinks its failing 2fa login.
 		}
 	);
