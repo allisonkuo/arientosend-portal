@@ -24,7 +24,7 @@
 <tr>
 	<td>type</td>
 	<td>name=domain</td>
-	<td>javascript{&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;.split(&quot;&quot;).filter(function(e, i, a) { return Math.random() &gt; 0.8 }).join(&quot;&quot;) + &quot;@email.com&quot;;}</td>
+	<td>javascript{&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;.split(&quot;&quot;).filter(function(e, i, a) { return Math.random() &gt; 0.8 }).join(&quot;&quot;) + &quot;.com&quot;;}</td>
 </tr>
 <tr>
 	<td>type</td>
