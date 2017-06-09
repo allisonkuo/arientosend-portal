@@ -405,10 +405,10 @@ module.exports = function(app, passport) {
 									req.flash('editInputMessage', 'Company edited successfully');
 									res.render('editInput.ejs', {
 										user : req.user,
-										name: req.body.name,
-										domain: req.body.domain,
-										co_email: req.body.co_email,
-										co_password: req.body.co_password,
+										name : req.body.name,
+										domain : req.body.domain,
+										co_email : req.body.co_email,
+										co_password : req.body.co_password,
 										message : req.flash('editInputMessage')
 									});
 								})
@@ -420,6 +420,18 @@ module.exports = function(app, passport) {
 		})  
     });
 
+    // delete company
+    app.post('/delete', function(req, res) {
+        var query = "DELETE FROM company WHERE company_name = ?";
+        connection.query(query, req.body.name, function(err, result) {
+            if (err) {
+                console.log("database error");
+                req.flash('editMessage', 'Oops! An error has occured. Please try again.');
+            }
+            req.flash('editMessage', 'Company deleted successfully!');
+            res.send({ redirect: '/edit'});
+        })
+    });
 
     // =====================================
     // LOGOUT ==============================

@@ -54,9 +54,9 @@
 		<!-- show any messages that come back with edit -->
         <% if (message.length > 0) { %>
         	<% if (message == "Company edited successfully") { %>
-            	<div class="alert alert-success stack" style="margin-bottom:20px"><%= message %></div>
+            	<div class="alert alert-success stack text-center" style="margin-bottom:20px"><%= message %></div>
             <% } else { %>
-            	<div class="alert alert-danger stack" style="margin-bottom: 20px"><%= message %></div>
+            	<div class="alert alert-danger stack text-center" style="margin-bottom: 20px"><%= message %></div>
             <% } %>
         <% } %>
 		
@@ -75,12 +75,26 @@
 				<input type="password" class="form-control input-edit" name="co_password" value="" placeholder="Password" readonly>
 			</div>
 
-			<div class="clickable" id="edit-div"><button type="submit" id="edit">EDIT</button></div>
-
-			<div class="delete-btn" id="delete-div"><button type="submit" id="delete">DELETE</button></div>
+			<div class="clickable" id="edit-div"><button id="edit" type="submit">EDIT</button></div>
 		</form> 
 
+		<div class="delete-btn" id="delete-div"><button id="delete">DELETE</button></div>
+
 </div>
+
+<!-- ajax calls -->
+<script>
+	$('#delete').on('click', function() {
+		$.ajax({
+			type: 'POST',
+			url: '../delete',
+			data: { name: '<%= name %>'},
+			success: function(data) {
+				window.location = data.redirect;
+			}
+		})
+	});
+</script>
 
 </body>
 </html>
