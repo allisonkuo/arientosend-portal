@@ -223,6 +223,10 @@ a:hover {
 	color: black;
 }
 
+#edit-div {
+	margin-bottom: 20px;
+}
+
 #create {
 	background: transparent;
 	border: none;
@@ -231,6 +235,21 @@ a:hover {
 #edit {
 	background: transparent;
 	border: none;
+}
+
+#delete {
+	background: transparent;
+	border: none;
+}
+
+.delete-btn {
+	background: #9e0300;
+	border: 1px solid #9e0300;
+	padding: 10px 0px 10px 0px;
+	margin: 20px;
+	width: 300px;
+	margin: auto;
+	text-align: center;
 }
 
 /*** the list of companies ***/
