@@ -21,8 +21,8 @@ $(document).ready(function() {
 
         var empty = false;
         $('form').find('input').each(function() {
-            if ($(this).val() == '') {
-            	console.log($(this).val());
+            if ($(this).val() == '' && $(this).attr('type') != "password") {
+            	console.log($(this).attr('type'));
                 empty = true;
             }
         });

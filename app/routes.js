@@ -298,7 +298,7 @@ module.exports = function(app, passport) {
     });
 
     // update company information in database
-    app.post('/edit/:companyName', function(req, res) {
+    app.post('/edit/:companyName', isLoggedIn, function(req, res) {
 		var query = "SELECT * FROM company WHERE company_name = ?";
 		var name = req.params.companyName;
 		var info;
@@ -365,6 +365,31 @@ module.exports = function(app, passport) {
 								req.flash('editMessage', 'Company email already exists.');
 								res.redirect('/edit');
 							}
+                            // don't update password if not included
+                            else if (req.body.co_password == "") {
+                                console.log("NO PASSWORD PROVIDED");
+                                var updateQuery = "UPDATE company SET company_name = ?, company_domain = ?, company_email = ? WHERE company_name = ?";
+                                var newInfo = [req.body.name, req.body.domain, req.body.co_email, name];
+
+                                connection.query(updateQuery, newInfo, function(err, result) {
+                                    if (err) {
+                                        console.log("database error");
+                                        req.flash('editMessage', 'Oops! An error has occurred. Please try again.');
+                                        res.redirect('/edit');
+                                    }
+                                    console.log(result.message);
+                                    req.flash('editInputMessage', 'Company edited successfully');
+                                    res.render('editInput.ejs', {
+                                        user : req.user,
+                                        name: req.body.name,
+                                        domain: req.body.domain,
+                                        co_email: req.body.co_email,
+                                        co_password: req.body.co_password,
+                                        message : req.flash('editInputMessage')
+                                    });
+                                })
+
+                            }
 							else {
 								// if no duplicate information, update the company
 								var updateQuery = "UPDATE company SET company_name = ?, company_domain = ?, company_email = ?, company_password = ? WHERE company_name = ?";
