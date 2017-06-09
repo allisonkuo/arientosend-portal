@@ -51,8 +51,6 @@ module.exports = function(passport) {
     // =========================================================================
     // LOCAL LOGIN =============================================================
     // =========================================================================
-    // we are using named strategies since we have one for login and one for signup
-    // by default, if there was no name, it would just be called 'local'
 
     passport.use('local-login', new LocalStrategy({
             // by default, local strategy uses username and password, we will override with email
@@ -73,8 +71,6 @@ module.exports = function(passport) {
                 }
 
                 // if the user is found but the password is wrong
-                // TODO: make this handle encryption
-                //if (password != rows[0].login_password) {
                 if (!User.checkLogin(password)) {
                     return done(null, false, req.flash('loginMessage', 'Oops! Incorrect username/password. ')); // create the loginMessage and save it to session as flashdata
                 }
@@ -116,6 +112,7 @@ module.exports = function(passport) {
 		})
 	);
 	
+	//TODO: Why are there two identical strategies?
 	passport.use('totp', new TotpStrategy({
 			codeField : 'code'
 		},
