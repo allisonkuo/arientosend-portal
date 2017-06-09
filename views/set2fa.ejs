@@ -66,10 +66,10 @@
 			</form>
 		<% } %>
 		<% if (has2fa) {%>
-			<h2 id="login-header">Enter 2FA code to disable 2FA</h2>
+			<h2 id="login-header" class="text-center">Enter 2FA code to disable 2FA</h2>
 			
 			<form action="/set2fa" method="post">
-				<div class="form-group">
+				<div class="form-group center-block" style="width: 300px">
 					<input type="text" class="form-control login" name="code" placeholder="Code">
 				</div>
 
