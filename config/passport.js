@@ -113,15 +113,18 @@ module.exports = function(passport) {
 	);
 	
 	passport.use('change-password', new LocalStrategy({
+		usernameField : 'new_password', //dumb workaround
 		passwordField: 'old_password',
 		passReqToCallback : true
 		},
 		function(req, username, password, done){
+			console.log('hi');
 			User.find('login', 'username', req.user.username, function(err, rows){ //make sure password matches old password
+				console.log('1');
 				if(err){
 					return done(err);
 				}
-				
+				console.log('2');
 				if(!rows.length){
 					console.log('I cannot be here');
 					err = new Error('The user that is logged in does not exist.');
@@ -129,22 +132,23 @@ module.exports = function(passport) {
 					err.fatal = false;
 					return done(err);
 				}
-				
+				console.log('3');
 				if(!User.checkLogin(password)){
-					return done(null, false, req.flash('changepwdMessage', 'Incorrect old password.');
+					return done(null, false, req.flash('changepwdMessage', 'Incorrect old password.'));
 				}
-				
-				if(req.new_password != req.new_password2){
-					return done(null, false, req.flash('changepwdMessage', 'New passwords do not match.');
+				console.log(req.body.new_password + ' ' + req.body.new_password2);
+				if(req.body.new_password != req.body.new_password2){
+					return done(null, false, req.flash('changepwdMessage', 'New passwords do not match.'));
 				}
-				
-				User.updatePassword(req.user.username, User.hashPassword(req.new_password), function(err){
+				console.log('5');
+				User.updatePassword(req.user.username, User.hashPassword(req.body.new_password), function(err){
 					if(err){
 						return done(err);
 					}
 					
-					return done(null, req.user, req.flash('lpMessage', 'Success! Password changed!');
+					return done(null, req.user, req.flash('lpMessage', 'Success! Password changed!'));
 				});
+				console.log('6?');
 			});
 		})
 	);
