@@ -3,13 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="selenium.base" href="http://localhost:8080/" />
-<title>random_invalid_email</title>
+<link rel="selenium.base" href="http://arientosenddemo.us-west-1.elasticbeanstalk.com/" />
+<title>check_name_copy</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">random_invalid_email</td></tr>
+<tr><td rowspan="1" colspan="3">check_name_copy</td></tr>
 </thead><tbody>
 <tr>
 	<td>clickAndWait</td>
@@ -19,17 +19,17 @@
 <tr>
 	<td>type</td>
 	<td>name=name</td>
-	<td>javascript{&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;.split(&quot;&quot;).filter(function(e, i, a) { return Math.random() &gt; 0.8 }).join(&quot;&quot;);}</td>
+	<td>boats</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>name=domain</td>
-	<td>javascript{&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;.split(&quot;&quot;).filter(function(e, i, a) { return Math.random() &gt; 0.8 }).join(&quot;&quot;) + &quot;.com&quot;;}</td>
+	<td>boatsboatsboats.org</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>name=co_email</td>
-	<td>javascript{&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;.split(&quot;&quot;).filter(function(e, i, a) { return Math.random() &gt; 0.8 }).join(&quot;&quot;);}</td>
+	<td>boats@boats.com</td>
 </tr>
 <tr>
 	<td>type</td>
@@ -49,13 +49,14 @@
 <tr>
 	<td>assertText</td>
 	<td>//div/div/div</td>
-	<td>Please submit a valid email.</td>
+	<td>Company name already exists.</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
 	<td>link=HOME</td>
 	<td></td>
 </tr>
+
 </tbody></table>
 </body>
 </html>

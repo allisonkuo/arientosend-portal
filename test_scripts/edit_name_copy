@@ -4,42 +4,62 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:8080/" />
-<title>basic_login_logout</title>
+<title>edit_name_copy</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">basic_login_logout</td></tr>
+<tr><td rowspan="1" colspan="3">edit_name_copy</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/</td>
+	<td>/landingpage</td>
 	<td></td>
-</tr>
-<tr>
-	<td>assertTitle</td>
-	<td>Ariento Admin Portal</td>
-	<td></td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>name=email</td>
-	<td>cs130</td>
-</tr>
-<tr>
-	<td>type</td>
-	<td>name=password</td>
-	<td>1234</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>
-	<td>id=submit</td>
+	<td>link=EDIT PAGE</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertTitle</td>
-	<td>Ariento Admin Portal</td>
+	<td>Ariento Admin Portal -- Edit Pages</td>
 	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=Galactic Empireas</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=div.container-fluid.vertical-center</td>
+	<td>Galactic Empireas</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=edit-btn</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=name</td>
+	<td>boats</td>
+</tr>
+<tr>
+	<td>sendKeys</td>
+	<td>name=name</td>
+	<td>${KEY_TAB}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div/div/div</td>
+	<td>Company name already exists.</td>
 </tr>
 </tbody></table>
 </body>

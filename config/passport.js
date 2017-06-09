@@ -112,6 +112,47 @@ module.exports = function(passport) {
 		})
 	);
 	
+	passport.use('change-password', new LocalStrategy({
+		usernameField : 'new_password', //dumb workaround
+		passwordField: 'old_password',
+		passReqToCallback : true
+		},
+		function(req, username, password, done){
+			console.log('hi');
+			User.find('login', 'username', req.user.username, function(err, rows){ //make sure password matches old password
+				console.log('1');
+				if(err){
+					return done(err);
+				}
+				console.log('2');
+				if(!rows.length){
+					console.log('I cannot be here');
+					err = new Error('The user that is logged in does not exist.');
+					err.code = 'NONEXISTANT_USER';
+					err.fatal = false;
+					return done(err);
+				}
+				console.log('3');
+				if(!User.checkLogin(password)){
+					return done(null, false, req.flash('changepwdMessage', 'Incorrect old password.'));
+				}
+				console.log(req.body.new_password + ' ' + req.body.new_password2);
+				if(req.body.new_password != req.body.new_password2){
+					return done(null, false, req.flash('changepwdMessage', 'New passwords do not match.'));
+				}
+				console.log('5');
+				User.updatePassword(req.user.username, User.hashPassword(req.body.new_password), function(err){
+					if(err){
+						return done(err);
+					}
+					
+					return done(null, req.user, req.flash('lpMessage', 'Success! Password changed!'));
+				});
+				console.log('6?');
+			});
+		})
+	);
+	
 	//TODO: Why are there two identical strategies?
 	passport.use('totp', new TotpStrategy({
 			codeField : 'code'
@@ -128,7 +169,7 @@ module.exports = function(passport) {
 			done(null, base32.decode(user.totpsecret), 30);
 		})
 	);
-	console.log('fallthrough?');
+	
 	passport.registerTotp = function(username, state, secret){
 		User.set2fa(username, state, secret);
 	};

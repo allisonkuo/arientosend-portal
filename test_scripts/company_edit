@@ -9,12 +9,12 @@
 <table id="suiteTable" cellpadding="1" cellspacing="1" border="1" class="selenium"><tbody>
 <tr><td><b>Test Suite</b></td></tr>
 <tr><td><a href="basic_login_logout">basic_login_logout</a></td></tr>
-<tr><td><a href="random_company_create">random_company_create</a></td></tr>
-<tr><td><a href="random_invalid_email">random_invalid_email</a></td></tr>
-<tr><td><a href="random_invalid_domain">random_invalid_domain</a></td></tr>
-<tr><td><a href="check_name_copy">check_name_copy</a></td></tr>
-<tr><td><a href="check_domain_copy">check_domain_copy</a></td></tr>
-<tr><td><a href="check_email_copy">check_email_copy</a></td></tr>
+<tr><td><a href="edit_invalid_domain">edit_invalid_domain</a></td></tr>
+<tr><td><a href="edit_invalid_email">edit_invalid_email</a></td></tr>
+<tr><td><a href="edit_company">edit_company</a></td></tr>
+<tr><td><a href="edit_name_copy">edit_name_copy</a></td></tr>
+<tr><td><a href="edit_domain_copy">edit_domain_copy</a></td></tr>
+<tr><td><a href="edit_email_copy">edit_email_copy</a></td></tr>
 </tbody></table>
 </body>
 </html>
