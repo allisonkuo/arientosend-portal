@@ -91,6 +91,29 @@ module.exports = function(app, passport) {
 	}));
 	
 	// =====================================
+	// SETTINGS ============================
+	// =====================================
+	// Author: Daniel Kho
+	
+	app.get('/settings', isLoggedIn, ensureTotp, function(req,res){
+		res.render('settings.ejs',{
+			user : req.user
+		});
+	});
+	
+	app.get('/changepwd', isLoggedIn, ensureTotp, function(req,res){
+		res.render('changepwd.ejs',{
+			message: req.flash('changepwdMessage'),
+			user: req.user
+		});
+	});
+	
+	app.post('/changepwd', passport.authenticate('change-password', {
+			successRedirect : '/landingpage',
+			failureRedirect : '/changepwd',
+			failureFlash : true
+	}));
+	// =====================================
 	// 2FA REGISTRATION ====================
 	// =====================================
 	// Author: Daniel Kho

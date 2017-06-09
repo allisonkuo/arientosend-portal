@@ -61,6 +61,13 @@ module.exports = function(){
 		});
 	};
 	
+	User.updatePassword = function(username, password, callback){
+		var sql = 'UPDATE login SET password=' + connection.escape(password) + ' WHERE username=' + connection.escape(username);
+		connection.query(sql, function(err, results){
+			callback(err);
+		});
+	}
+	
 	User.set2fa = function(username, state, secret){
 		var sql = 'SELECT * FROM login WHERE username = ' + connection.escape(username);
 		connection.query(sql, function(err, results){
