@@ -42,12 +42,13 @@
 
 
 <div class="container-fluid vertical-center">
-
-	<% if (message.length > 0) { %>
-		<div class="alert alert-danger"><%= message %></div>
-	<% } %>
 	
 	<div class="center-block">
+
+		<% if (message.length > 0) { %>
+			<div class="alert alert-success center-block text-center" style="margin-bottom: 50px; width: 300px"><%= message %></div>
+		<% } %>
+
 		<a href="/create" class="box">CREATE PAGE</a>
 		<a href="/edit" class="box">EDIT PAGE</a>
 
