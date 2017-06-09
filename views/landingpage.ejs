@@ -26,20 +26,37 @@
 	<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,700" rel="stylesheet"> <!-- font -->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>	
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 
 <body class="gradient-background">
-<nav class="navbar navbar-fixed-top">
- <div class="container-fluid">
-    <ul class="nav navbar-nav navbar-right">
-		<li class="disabled"><a href="#">WELCOME, <%= user.username%></a></li>
-    	<li><a href="/settings"><i class="fa fa-cog" aria-hidden="true"></i></a></li>
-      	<li><a href="/logout"> LOGOUT</a></li>
-    </ul>
-  </div>
-</nav>
+<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
 
+ 	<div id="navbarCollapse" class="collapse navbar-collapse">
+    	<ul class="nav navbar-nav navbar-right">
+			<li class="disabled"><a href="#">WELCOME, <%= user.username%></a></li>
+    		<li><a href="/landingpage"> HOME</a></li>
+            <li><a href="/create"> CREATE</a></li>
+            <li><a href="/edit"> EDIT</a></li>
+            <li><a href="/newadmin"> NEW ADMIN</a></li>
+        	<li><a href="/set2fa"><i class="fa fa-cog" aria-hidden="true"></i></a></li>
+      		<li><a href="/logout"> LOGOUT</a></li>
+    	</ul>
+  	</div>
+  	</div>
+</nav>
 
 <div class="container-fluid vertical-center">
 	
