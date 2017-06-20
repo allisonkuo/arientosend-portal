@@ -153,7 +153,6 @@ module.exports = function(passport) {
 		})
 	);
 	
-	//TODO: Why are there two identical strategies?
 	passport.use('totp', new TotpStrategy({
 			codeField : 'code'
 		},

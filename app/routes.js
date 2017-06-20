@@ -18,7 +18,6 @@
     along with ArientoSend.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//TODO: See if I can move this out into another module...
 var db 	= require('../config/database');
 var connection = db();
 
@@ -75,7 +74,6 @@ module.exports = function(app, passport) {
 	// =====================================
 	// NEW ADMIN ===========================
 	// =====================================
-	// Author: Daniel Kho
 	
 	app.get('/newadmin', isLoggedIn, ensureTotp, function(req, res) {
         res.render('newadmin.ejs', {
@@ -93,7 +91,6 @@ module.exports = function(app, passport) {
 	// =====================================
 	// SETTINGS ============================
 	// =====================================
-	// Author: Daniel Kho
 	
 	app.get('/settings', isLoggedIn, ensureTotp, function(req,res){
 		res.render('settings.ejs',{
@@ -116,7 +113,6 @@ module.exports = function(app, passport) {
 	// =====================================
 	// 2FA REGISTRATION ====================
 	// =====================================
-	// Author: Daniel Kho
 	
 	app.get('/set2fa', isLoggedIn, ensureTotp, function(req, res){
 		var url;
